@@ -1,0 +1,302 @@
+# Textbox Class Documentation
+
+## Overview
+
+The `Textbox` class provides a flexible system for displaying dialogue and interactive messages in a game. It supports features such as typewriter text effects, multiple message queuing, interactive options, and automatic text wrapping with pagination. The system handles both keyboard and gamepad input for navigation and selection.
+
+```gml
+/// @brief A Textbox system for managing and displaying messages with options.
+/// This constructor creates a textbox instance that can display text, handle typing effects, 
+/// and provide interactive options for the player.
+/// @param {Real} xto The x-coordinate of the textbox.
+/// @param {Real} yto The y-coordinate of the textbox.
+/// @param {Real} max_w The maximum width of the textbox.
+/// @param {Real} max_h The maximum height of the textbox.
+/// @param {Function|Real} onShow Function called when first message is shown.
+/// @param {Function|Real} onClear Function called when all messages are cleared.
+/// @param {Array} key_input_array Keys for [up,down,left,right,enter]
+function Textbox(xto, yto, max_w, max_h, onShow=-1, onClear=-1, key_input_array=[vk_up,vk_down,vk_left,vk_right,vk_enter]) constructor {
+    // Properties and methods defined...
+}
+```
+
+## Properties
+
+- **cam_id** (Real): The camera ID associated with the textbox (default: 0)
+- **shift_toggle** (Real): Tracks gamepad input state to prevent continuous selection changes
+- **rect_sprite** (Sprite): The sprite used for the textbox background
+- **option_button** (Sprite): The sprite used for option selection buttons
+- **sys_sprite** (Sprite): The sprite used for the system name/header display
+- **key_icons** (Struct): Contains sprites for keyboard and gamepad button icons
+- **char** (Real): The current character position in the text typing animation
+- **font** (Real): The font used for displaying text (default: -1)
+- **messages** (Array): Queue of message objects waiting to be displayed
+- **onShowMessage** (Function|Real): Function called when a message is first shown
+- **onClearMessage** (Function|Real): Function called when all messages are cleared
+- **draw_rect** (Struct): Defines the position and dimensions of the textbox
+- **selection** (Real): The currently selected option index
+- **inputs** (Array): Key codes for navigation [up,down,left,right,enter]
+- **char_type_delay** (Real): Frames between each character in the typing animation
+- **char_type** (Real): Timer counter for the typing animation
+- **padding** (Real): Space between text and the textbox edges
+
+## Methods
+
+### Core Methods
+
+#### add_message()
+
+Adds a new message to the textbox queue with optional system name.
+
+```gml
+/// @brief Adds a message to the textbox queue.
+/// @param _text The text of the message to be added.
+/// @param _sys Optional system name/header for the message.
+/// @return The index of the newly added message in the queue.
+static add_message = function(_text, _sys="") {
+    // Implementation...
+}
+```
+
+#### add_option()
+
+Adds a selectable option to a message with an associated callback function.
+
+```gml
+/// @brief Adds an option to a message in the queue.
+/// @param _index The index of the message to add the option to.
+/// @param _option The option text to display.
+/// @param _method The function to call when this option is selected.
+static add_option = function(_index, _option = $"OK", _method = -1) {
+    // Implementation...
+}
+```
+
+#### done_typing()
+
+Checks if the current message has finished its typing animation.
+
+```gml
+/// @brief Checks if the current message has finished typing.
+/// @return True if the message has finished typing, false otherwise.
+static done_typing = function() {
+    // Implementation...
+}
+```
+
+#### update()
+
+Updates the textbox state, handling typing animation and automatic text splitting.
+
+```gml
+/// @brief Updates the state of the textbox, including typing and splitting messages.
+static update = function() {
+    // Implementation...
+}
+```
+
+#### draw()
+
+Renders the textbox, message text, and options to the screen.
+
+```gml
+/// @brief Draws the textbox and its contents, including options if typing is complete.
+static draw = function() {
+    // Implementation...
+}
+```
+
+### Utility Methods
+
+#### __draw_text_outline()
+
+Draws text with an outline effect for better visibility.
+
+```gml
+/// @param x The x-coordinate for the text.
+/// @param y The y-coordinate for the text.
+/// @param string The text to draw.
+/// @param c_outline The color of the outline.
+/// @param c_text The color of the main text.
+/// @param w_outline The width of the outline.
+static __draw_text_outline = function(xto, yto, str, c1=c_black, c2=c_white, w_outline=1) {
+    // Implementation...
+}
+```
+
+#### __keyboard_vector()
+
+Updates a vector based on keyboard input for directional movement.
+
+```gml
+/// @brief Updates a vector based on keyboard input for directional movement.
+/// @param {Struct} vec2 The vector to update. Must have `x` and `y` components.
+/// @param {Real|String} key_up The key or key code for upward movement.
+/// @param {Real|String} key_down The key or key code for downward movement.
+/// @param {Real|String} key_left The key or key code for leftward movement.
+/// @param {Real|String} key_right The key or key code for rightward movement.
+/// @param {Bool} continuous Whether to check for continuous or single presses.
+static __keyboard_vector = function(vec2, key_up, key_down, key_left, key_right, continuous=true) {
+    // Implementation...
+}
+```
+
+#### __gamepad_vector()
+
+Updates a vector based on gamepad analog stick input.
+
+```gml
+/// @param vec2 The vector to update.
+/// @param pad_id The gamepad device ID.
+/// @param deadzone The minimum analog stick value to register.
+static __gamepad_vector = function(vec2, pad_id, deadzone = 0.2) {
+    // Implementation...
+}
+```
+
+#### __check_inputs_pressed()
+
+Checks if a key or gamepad button has been pressed.
+
+```gml
+/// @param _key The keyboard key to check.
+/// @param _padButton The gamepad button to check.
+/// @param _device The gamepad device ID.
+/// @return True if either input is pressed, false otherwise.
+static __check_inputs_pressed = function(_key, _padButton, _device=0) {
+    // Implementation...
+}
+```
+
+## Usage Examples
+
+### Creating a Textbox System
+
+```gml
+// Create a textbox in a controller object
+function create() {
+    // Create textbox at position (100, 400) with size 640x160
+    dialog_box = new Textbox(
+        100,                                    // X position
+        400,                                    // Y position
+        640,                                    // Width
+        160,                                    // Height
+        function() { audio_play_sound(snd_message_open, 1, false); },   // onShow callback
+        function() { global.dialog_active = false; }                    // onClear callback
+    );
+    
+    // Set font and customize appearance
+    dialog_box.font = font_dialog;
+    dialog_box.char_type_delay = 2;  // Slower typing speed
+}
+```
+
+### Adding Simple Messages
+
+```gml
+// Display a basic message to the player
+function show_npc_greeting() {
+    var msg_index = dialog_box.add_message("Hello traveler! Welcome to our village.");
+    
+    // Continue game logic after message is closed
+    global.dialog_active = true;
+}
+
+// Display a message with a system name/header
+function show_quest_notification() {
+    var msg_index = dialog_box.add_message(
+        "You have received a new quest: Retrieve the ancient artifact.",
+        "QUEST SYSTEM"
+    );
+}
+```
+
+### Adding Messages with Options
+
+```gml
+// Create a dialogue with multiple response options
+function show_merchant_dialogue() {
+    var msg_index = dialog_box.add_message(
+        "What would you like to buy today?",
+        "MERCHANT"
+    );
+    
+    // Add dialogue options with callbacks
+    dialog_box.add_option(msg_index, "Weapons", function() {
+        show_weapon_shop();
+    });
+    
+    dialog_box.add_option(msg_index, "Potions", function() {
+        show_potion_shop();
+    });
+    
+    dialog_box.add_option(msg_index, "Nothing, thanks", function() {
+        // Just close the dialogue
+    });
+    
+    global.dialog_active = true;
+}
+```
+
+### Managing Textbox Flow
+
+```gml
+// In the Step Event of a controller object
+function step() {
+    if (global.dialog_active) {
+        // Update textbox animations and input
+        dialog_box.update();
+        
+        // Prevent other game actions while dialog is active
+        // ...
+    }
+}
+
+// In the Draw GUI Event of a controller object
+function draw_gui() {
+    if (global.dialog_active) {
+        // Draw the textbox
+        dialog_box.draw();
+    }
+}
+```
+
+### Handling Multi-Page Text
+
+```gml
+// The textbox automatically handles text that exceeds the box dimensions
+function show_long_explanation() {
+    var msg_index = dialog_box.add_message(
+        "The ancient ruins were built over 1000 years ago by a civilization known as the Arkadians. " +
+        "They were master craftsmen and powerful magic users, capable of creating incredible artifacts. " +
+        "Their civilization suddenly disappeared without a trace, leaving only these mysterious ruins. " +
+        "Scholars have spent centuries trying to decipher the symbols and understand what happened to them. " +
+        "Some believe they ascended to another plane of existence, while others think they fell victim to a " +
+        "terrible catastrophe of their own making.",
+        "HISTORIAN"
+    );
+    
+    global.dialog_active = true;
+    // The textbox will automatically split this into multiple pages as needed
+}
+```
+
+## Technical Implementation Details
+
+1. **Typewriter Effect**: The system gradually reveals text character by character to simulate a typing effect, with customizable speed.
+
+2. **Automatic Pagination**: If text exceeds the textbox dimensions, it's automatically split into multiple sequential messages with "OK" options to continue.
+
+3. **Input Flexibility**: The system supports both keyboard and gamepad input for navigation and selection, with automatic detection of connected controllers.
+
+4. **Text Outlining**: Text can be displayed with an outline effect for better visibility against varying backgrounds, with support for SDF fonts.
+
+5. **Input Visualization**: The system can display appropriate input icons (keyboard or gamepad) based on the connected input devices.
+
+6. **Message Queue**: Multiple messages can be queued and displayed sequentially, allowing for complex dialogue sequences.
+
+7. **Callback System**: The textbox can trigger custom functions when messages are shown, when all messages are cleared, or when specific options are selected.
+
+8. **Vector-Based Input**: The system uses vector normalization to handle directional input from both keyboard and gamepad, ensuring consistent navigation.
+
+9. **Smart Text Wrapping**: The textbox automatically handles word wrapping with special consideration for line breaks and word splitting, including proper hyphenation.

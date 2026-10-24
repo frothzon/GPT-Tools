@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"CraftingQueue",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"CraftingQueue",
+  "parent":{
+    "name":"Crafting",
+    "path":"folders/Resources/Scripts/Crafting.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

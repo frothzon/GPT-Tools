@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"CollisionGrid",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"CollisionGrid",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Resources/Scripts/MovingGrid/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

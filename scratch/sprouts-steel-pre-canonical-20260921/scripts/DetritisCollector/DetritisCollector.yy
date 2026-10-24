@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"DetritisCollector",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"DetritisCollector",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Resources/Scripts/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

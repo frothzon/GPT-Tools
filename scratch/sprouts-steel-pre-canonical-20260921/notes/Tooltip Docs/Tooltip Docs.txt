@@ -1,0 +1,163 @@
+# Tooltip Class Documentation
+
+## Overview
+
+The `Tooltip` class manages on-screen notifications that display temporary messages to the player. Each tooltip can include text, an optional image, and customizable text colors. Tooltips are automatically managed and removed after a configurable display duration.
+
+```gml
+/// @brief Tooltip system for displaying temporary messages on the screen.
+/// This function acts as a constructor for creating and managing tooltip items.
+/// Tooltips display messages with optional images and text colors.
+function Tooltip(_image) constructor {
+    // Properties and methods defined...
+}
+```
+
+## Properties
+
+- **items** (Array): Collection of tooltip items, where each item contains a string, image, display time, and color
+- **time_displayed** (Real): Duration (in steps) each tooltip remains visible on screen (default: 2 seconds)
+- **image** (Sprite): The sprite used as the background for tooltip messages
+- **min_size** (Real): Minimum size for tooltip display elements (default: 32)
+- **padding** (Real): Padding space around tooltip elements (default: 12)
+
+## Methods
+
+### Core Methods
+
+#### add()
+
+Adds a new tooltip to the system with specified text, image, and color.
+
+```gml
+/// @brief Adds a new tooltip to the system.
+/// @param _string The text to display in the tooltip.
+/// @param _image The sprite to display alongside the text.
+/// @param _textColor The color of the tooltip text.
+static add = function(_string, _image, _textColor) {
+    // Implementation...
+}
+```
+
+#### update()
+
+Updates all active tooltips, incrementing their display timers and removing expired tooltips.
+
+```gml
+/// @brief Updates the tooltip system, removing items when their display time elapses.
+static update = function() {
+    // Implementation...
+}
+```
+
+#### draw()
+
+Renders all active tooltips to the screen with proper positioning and formatting.
+
+```gml
+/// @brief Draws all active tooltips on the screen.
+static draw = function() {
+    // Implementation...
+}
+```
+
+## Usage Examples
+
+### Creating a Tooltip System
+
+```gml
+// Create a tooltip system in a controller object
+function create() {
+    // Initialize with a background sprite
+    tooltip_system = new Tooltip(spr_tooltip_background);
+}
+```
+
+### Adding Tooltips
+
+```gml
+// Add a notification when player collects an item
+function collect_item(_item_name) {
+    // Add tooltip with item name, icon, and white text
+    tooltip_system.add(
+        "Collected " + _item_name,  // Message text
+        spr_item_icon,              // Item icon sprite
+        c_white                     // Text color
+    );
+    
+    // Continue with other item collection logic
+    // ...
+}
+
+// Display an achievement notification
+function unlock_achievement(_achievement_name) {
+    // Add tooltip with achievement name, trophy icon, and gold text
+    tooltip_system.add(
+        "Achievement Unlocked: " + _achievement_name,
+        spr_trophy_icon,
+        c_yellow
+    );
+}
+
+// Show player status effect
+function apply_status_effect(_effect_name, _effect_duration) {
+    // Add tooltip with effect information and appropriate icon
+    var effect_message = _effect_name + " (" + string(_effect_duration) + "s)";
+    var effect_icon = asset_get_index("spr_effect_" + string_lower(_effect_name));
+    
+    tooltip_system.add(
+        effect_message,
+        effect_icon,
+        c_aqua
+    );
+}
+```
+
+### Updating and Drawing
+
+```gml
+// In the Step Event of a controller object
+function step() {
+    // Update tooltips (remove expired ones)
+    tooltip_system.update();
+}
+
+// In the Draw GUI Event of a controller object
+function draw_gui() {
+    // Draw all active tooltips
+    tooltip_system.draw();
+}
+```
+
+### Customizing Behavior
+
+```gml
+// Customize display duration (e.g., for important messages)
+function customize_tooltip_system() {
+    // Set tooltips to display for 5 seconds instead of the default 2
+    tooltip_system.time_displayed = game_get_speed(gamespeed_fps) * 5;
+    
+    // Increase padding for more spacing
+    tooltip_system.padding = 16;
+}
+```
+
+## Technical Implementation Details
+
+1. **Automatic Positioning**: Tooltips are positioned near the bottom-right of the screen, stacking upward as new tooltips are added.
+
+2. **Dynamic Sizing**: Each tooltip's size adjusts based on the length of the text content, with a minimum size ensured for readability.
+
+3. **Text Outlining**: Tooltip text is drawn with an outline to ensure visibility against varying background colors.
+
+4. **Timed Removal**: The system automatically removes tooltips after their display duration expires, preventing the need for manual cleanup.
+
+5. **Visual Elements**: Each tooltip displays:
+- A background sprite (customizable)
+- An optional icon image for the tooltip type
+- The tooltip message text with customizable color
+- An outline around the text for improved readability
+
+6. **Layered Drawing**: Tooltips are drawn in the GUI layer, ensuring they appear above game world elements.
+
+7. **Performance Optimization**: The system iterates backward through the tooltip array when removing items, preventing index issues during array modification.

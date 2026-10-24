@@ -1,0 +1,610 @@
+{
+  "planId": "11dfc0e98ee662662451097348afa0e013ef7bf0579b334ff15a946c6f8922bd",
+  "verification": {
+    "planId": "11dfc0e98ee662662451097348afa0e013ef7bf0579b334ff15a946c6f8922bd",
+    "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+    "profile": {
+      "target": "windows",
+      "runtime": "vm",
+      "toolchain": "GMS2@2024.14.4",
+      "config": "Default",
+      "timeout": 180,
+      "docsChannel": "project",
+      "language": "en"
+    },
+    "checks": {
+      "structure": {
+        "status": "failed",
+        "diagnostics": [
+          {
+            "code": "GMV023",
+            "severity": "warning",
+            "message": "event source has no descriptor declaration: Draw_64.gml",
+            "path": "objects/obj_camera_1/Draw_64.gml",
+            "line": null,
+            "column": null,
+            "resource": "obj_camera_1",
+            "source": null
+          },
+          {
+            "code": "GMV022",
+            "severity": "error",
+            "message": "declared event source is missing: Collision_0.gml",
+            "path": "objects/obj_item_material/Collision_0.gml",
+            "line": null,
+            "column": null,
+            "resource": "obj_item_material",
+            "source": null
+          },
+          {
+            "code": "GMV023",
+            "severity": "warning",
+            "message": "event source has no descriptor declaration: Collision_obj_item_material.gml",
+            "path": "objects/obj_item_material/Collision_obj_item_material.gml",
+            "line": null,
+            "column": null,
+            "resource": "obj_item_material",
+            "source": null
+          },
+          {
+            "code": "GMV031",
+            "severity": "error",
+            "message": "source file is missing for Collision.0",
+            "path": "objects/obj_item_material/Collision_0.gml",
+            "line": null,
+            "column": null,
+            "resource": "obj_item_material",
+            "source": null
+          },
+          {
+            "code": "GMV023",
+            "severity": "warning",
+            "message": "event source has no descriptor declaration: Draw_0.gml",
+            "path": "objects/obj_pickaxe/Draw_0.gml",
+            "line": null,
+            "column": null,
+            "resource": "obj_pickaxe",
+            "source": null
+          }
+        ]
+      },
+      "syntax": {
+        "status": "passed",
+        "verificationLevel": "syntax-hints",
+        "diagnostics": []
+      },
+      "compile": {
+        "status": "passed",
+        "verificationLevel": "build-check",
+        "profile": {
+          "target": "windows",
+          "runtime": "vm",
+          "toolchain": "GMS2@2024.14.4",
+          "config": "Default",
+          "timeout": 180,
+          "docsChannel": "project",
+          "language": "en"
+        },
+        "process": {
+          "command": [
+            "C:\\Users\\johns\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+            "C:\\Agent Tools\\game-maker\\node_modules\\@gamemaker\\gm-cli\\dist\\cli.js",
+            "compile",
+            "C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp",
+            "--target=windows",
+            "--runtime=vm",
+            "--toolchain=GMS2@2024.14.4",
+            "--config=Default",
+            "--cache-dir=C:\\Agent Tools\\game-maker\\.gm-cli-cache",
+            "--verbose"
+          ],
+          "exitCode": 0,
+          "stdout": "=== Downloading tools ===\nFound project-tool\nFound gmpm\nFound package-tool\nTools downloaded\n=== Downloading Igor ===\nIgor downloaded\n=== Fetching license ===\nLicense fetched\n=== Restoring prefabs ===\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe PREFABS RESTORE SOURCE=C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp PACKAGETOOL=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\package-tool\\node_modules\\@gm-tools\\package-tool-win-x64\\PackageTool.exe GMPM_DLL=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\gmpm\\node_modules\\@gm-tools\\gmpm-win-x64\\gmpm.dll PACKAGETOOLVERBOSE=TRUE PREFABSFOLDER=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\nProjectTool - Version 2026.0.176\n--------------------------------\nChecking 'VERSIONED' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp' - True/True : 20\nChecking 'VERS0' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp' - True/False : 20\nChecking 'MVC' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp' - False/False : 20\nChecking 'GMX' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp' - False/False : 20\nSetting up CoreResources for VERSIONED\nRESOURCETYPESPATH file path missing. Conversion will target the resource versions corresponding to this release of ProjectTool.\nChanging the class revisions of a VERSIONED file\nClass count: 140\nSource: C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp\nDestination: C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp\nProject requested to be read only, 1 files would have been changed of 321\nLoading...\nCore Resources : Info - +++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 212.3081ms\nSuccess\nNo Missing Prefabs!\nProjectTool Successful\nPrefabs restored\n=== Installing runtime ===\nRuntime found\n=== Compiling for windows ===\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\igor\\windows\\x64\\Igor.exe -rp C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268 -cache C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM -project C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp -runtime VM -of C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\crafting_game_v3.win -lf C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist -prefabs C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs -v -projectool C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe -ac /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== -jsonErrors -config Default -- windows Compile\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\bin\\platform_setting_defaults.json\nOptions: C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\local_settings.json\nFailed to load Options from C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\local_settings.json\nSetting up the Asset compiler\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=12 /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== /gn=\"crafting_game_v3\" /td=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /cd=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /rtp=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\" /zpuf=\"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\" /prefabs=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\" /projecttool=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe\"   /m=windows /tgt=64 /nodnd /cfg=\"Default\" /o=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\" /sh=True /optionsini=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\options.ini\"  /cvm /baseproject=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\BaseProject\\BaseProject.yyp\" \"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp\" /preprocess=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /lf=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist\"\nFound Project Format 2\n+++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 289.1426ms\nSuccess\nfinished merging assets from C:/Agent Tools/game-maker/.gm-cli-cache/prefabs/io.gamemaker.sdfshaders-1.0.0/io.gamemaker.sdfshaders-1.0.0.yyp.\nfinished merging assets from C:/Agent Tools/game-maker/.gmtool-work/verification/tmpudpeqyx5/candidate/crafting_game_v3.yyp.\nRelease build\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\ExtensionOptions.json\nOptionsIni\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\PlatformOptions.json\n[Compile] Run asset compiler\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=12 /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== /gn=\"crafting_game_v3\" /td=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /cd=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /rtp=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\" /zpuf=\"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\" /prefabs=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\" /projecttool=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe\"   /m=windows /tgt=64 /nodnd /cfg=\"Default\" /o=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\" /sh=True /optionsini=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\options.ini\"  /cvm /baseproject=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\BaseProject\\BaseProject.yyp\" \"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\candidate\\crafting_game_v3.yyp\" /bt=run /rt=vm /arch=32 /lf=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist\"\nLooking for built-in fallback image in C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\bin\\BuiltinImages\nCompile Constants...\nfinished.\nRemove DnD...\nfinished.\nCompile Scripts...\nfinished.\nCompile Rooms...\nfinished..... 0 CC empty\nfinished..... 0 CC empty\nCompile Objects...\nfinished.... 0 empty events\nCompile Timelines...finished.\nCompile Triggers...finished.\nCompile Extensions...\nCompile UI Layers...finished.\nGlobal scripts...\nfinished.\ncollapsing enums.\nFinal Compile...\nFinal Compile finished.\nSaving IFF file... C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\crafting_game_v3.win\nWriting Chunk... GEN8 size ... -0.00 MB\noption_game_speed=60\nWriting Chunk... OPTN size ... 0.00 MB\nWriting Chunk... LANG size ... 0.00 MB\nWriting Chunk... EXTN size ... 0.00 MB\nWriting Chunk... SOND size ... 0.00 MB\nWriting Chunk... AGRP size ... 0.00 MB\nWriting Chunk... SPRT size ... 0.00 MB\nWriting Chunk... BGND size ... 0.01 MB\nWriting Chunk... PATH size ... 0.00 MB\nWriting Chunk... SCPT size ... 0.00 MB\nWriting Chunk... GLOB size ... 0.01 MB\nWriting Chunk... SHDR size ... 0.00 MB\nWriting Chunk... FONT size ... 0.06 MB\nWriting Chunk... TMLN size ... 0.00 MB\nWriting Chunk... OBJT size ... 0.00 MB\nWriting Chunk... FEDS size ... 0.01 MB\nWriting Chunk... ACRV size ... 0.00 MB\nWriting Chunk... SEQN size ... 0.00 MB\nWriting Chunk... TAGS size ... 0.00 MB\nWriting Chunk... ROOM size ... 0.00 MB\nWriting Chunk... UILR size ... 0.01 MB\nWriting Chunk... DAFL size ... 0.00 MB\nWriting Chunk... EMBI size ... 0.00 MB\nWriting Chunk... PSEM size ... 0.00 MB\nWriting Chunk... PSYS size ... 0.00 MB\nWriting Chunk... TPAGE size ... 0.00 MB\nTexture Group - __YY__0fallbacktexture.png_YYG_AUTO_GEN_TEX_GROUP_NAME_\nTexture Group - Default\nWriting Chunk... TGIN size ... 0.00 MB\nWriting Chunk... CODE size ... 0.00 MB\nWriting Chunk... VARI size ... 1.51 MB\nWriting Chunk... FUNC size ... 0.06 MB\nWriting Chunk... FEAT size ... 0.01 MB\nWriting Chunk... STRG size ... 0.00 MB\nWriting Chunk... TXTR size ... 0.22 MB\n0 Compressing texture... \nwriting texture __yy__0fallbacktexture.png_yyg_auto_gen_tex_group_name__0.yytex... \n1 Compressing texture... \nwriting texture default_0.yytex... \n2 Compressing texture... writing texture default_1.yytex... \n3 Compressing texture... writing texture default_2.yytex... \n4 Compressing texture... writing texture default_3.yytex... \n5 Compressing texture... writing texture default_4.yytex... \n6 Compressing texture... writing texture default_5.yytex... \n7 Compressing texture... writing texture default_6.yytex... \n8 Compressing texture... writing texture default_7.yytex... \n9 Compressing texture... writing texture default_8.yytex... \n10 Compressing texture... writing texture default_9.yytex... \n11 Compressing texture... writing texture default_10.yytex... \n12 Compressing texture... writing texture default_11.yytex... \n13 Compressing texture... writing texture default_12.yytex... \n14 Compressing texture... writing texture default_13.yytex... \n15 Compressing texture... \nwriting texture default_14.yytex... \n16 Compressing texture... writing texture default_15.yytex... \n17 Compressing texture... writing texture default_16.yytex... \n18 Compressing texture... writing texture default_17.yytex... \n19 Compressing texture... writing texture default_18.yytex... \n20 Compressing texture... writing texture default_19.yytex... \nWriting Chunk... AUDO size ... 1.09 MB\nStats : GMA : Elapsed=1720.3273\nStats : GMA : sp=101,au=20,bk=2,pt=0,sc=924,sh=8,fo=2,tl=0,ob=38,ro=3,da=1,ex=0,ma=6,fm=0xC040B29D7FFE2EA4\nIgor complete.\nCompilation finished\n",
+          "stderr": "Latest available version is 2.4.1 (currently running 2.3.0), upgrade with \"npm install -g @gamemaker/gm-cli\"\n",
+          "durationSeconds": 4.14,
+          "timedOut": false
+        },
+        "diagnostics": [],
+        "projectChanges": {
+          "created": [],
+          "deleted": [],
+          "modified": []
+        },
+        "resolvedRuntimeVersions": [
+          "2024.14.4.268"
+        ],
+        "versionEvidence": "compiler log",
+        "completedAt": "2026-10-03T19:06:27.940005+00:00"
+      },
+      "scenario": {
+        "status": "skipped"
+      },
+      "visual": {
+        "status": "skipped"
+      }
+    },
+    "documentation": {
+      "coverage": {
+        "snapshotId": "bb7a6276a941173b028db3bed4352b342fffd89252a1b3e4ee024d29a32532bf",
+        "status": "complete-index",
+        "enumerationSource": "C:\\ProgramData\\GameMakerStudio2\\Manual\\GMS2-Robohelp-en.zip!/sitemap.xml",
+        "enumeratedPages": 3112,
+        "selectedPages": 3112,
+        "downloadedPages": 3112,
+        "failedDownloads": [],
+        "unresolvedEntries": [],
+        "duplicates": {
+          "Error_Reporting": [
+            "https://manual.gamemaker.io/monthly/en/Additional_Information/Error_Reporting.htm",
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Error_Reporting.htm"
+          ],
+          "Instance_Variables": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Variables/Instance_Variables.htm",
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Instances/Instance_Variables/Instance_Variables.htm"
+          ],
+          "Animation_Curves": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Animation_Curves/Animation_Curves.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Animation_Curves.htm"
+          ],
+          "Audio_Groups": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Audio/Audio_Groups/Audio_Groups.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Audio_Groups.htm"
+          ],
+          "Extensions": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Extensions/Extensions.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Extensions.htm"
+          ],
+          "Fonts": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Fonts/Fonts.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Fonts.htm"
+          ],
+          "Objects": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Objects/Objects.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Objects.htm"
+          ],
+          "Particle_Systems": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Particle_Systems/Particle_Systems.htm",
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Drawing/Particles/Particle_Systems/Particle_Systems.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Particle_Systems.htm"
+          ],
+          "Paths": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Paths/Paths.htm",
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/IDE_Preferences/General/Paths.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Paths.htm"
+          ],
+          "Rooms": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Rooms/Rooms.htm",
+            "https://manual.gamemaker.io/monthly/en/Quick_Start_Guide/Rooms.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Rooms.htm"
+          ],
+          "Scripts": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Scripts/Scripts.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Scripts.htm"
+          ],
+          "Sequences": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Sequences/Sequences.htm",
+            "https://manual.gamemaker.io/monthly/en/Quick_Start_Guide/Sequences.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Sequences.htm"
+          ],
+          "Shaders": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Shaders/Shaders.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Shaders.htm"
+          ],
+          "Sprites": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Sprites/Sprites.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Sprites.htm"
+          ],
+          "Tile_Sets": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Tilsets/Tile_Sets.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Tile_Sets.htm"
+          ],
+          "Timelines": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Timelines/Timelines.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Timelines.htm"
+          ],
+          "Dialog": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asynchronous_Functions/Dialog/Dialog.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Dialog.htm"
+          ],
+          "HTTP": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asynchronous_Functions/HTTP/HTTP.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/HTTP.htm"
+          ],
+          "Push_Notifications": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asynchronous_Functions/Push_Notifications/Push_Notifications.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Push_Notifications.htm"
+          ],
+          "Debugging": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Debugging/Debugging.htm",
+            "https://manual.gamemaker.io/monthly/en/Introduction/Debugging.htm",
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/IDE_Preferences/General/Debugging.htm"
+          ],
+          "Drawing": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Drawing/Drawing.htm",
+            "https://manual.gamemaker.io/monthly/en/Quick_Start_Guide/Drawing.htm"
+          ],
+          "section_index": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Flex_Panels/Function_Reference/Styling_Functions/section_index.htm",
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Flex_Panels/Function_Reference/section_index.htm"
+          ],
+          "Networking": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Networking/Networking.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Networking.htm"
+          ],
+          "Steam": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Steam/Steam.htm",
+            "https://manual.gamemaker.io/monthly/en/The_Asset_Editors/Object_Properties/Async_Events/Steam.htm"
+          ],
+          "Recent_Windows": [
+            "https://manual.gamemaker.io/monthly/en/IDE_Navigation/Recent_Windows.htm",
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/IDE_Preferences/General/Recent_Windows.htm"
+          ],
+          "Compiling": [
+            "https://manual.gamemaker.io/monthly/en/Introduction/Compiling.htm",
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/IDE_Preferences/General/Compiling.htm"
+          ],
+          "Android": [
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences/Android.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Game_Options/Android.htm"
+          ],
+          "HTML5": [
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences/HTML5.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Game_Options/HTML5.htm"
+          ],
+          "Reddit": [
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences/Reddit_Prefs.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Game_Options/Reddit_Game_Options.htm"
+          ],
+          "Windows": [
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences/Windows.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Game_Options/Windows.htm"
+          ],
+          "iOS": [
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences/iOS.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Game_Options/iOS.htm"
+          ],
+          "macOS": [
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences/macOS.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Game_Options/macOS.htm"
+          ],
+          "tvOS": [
+            "https://manual.gamemaker.io/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences/tvOS.htm",
+            "https://manual.gamemaker.io/monthly/en/Settings/Game_Options/tvOS.htm"
+          ]
+        },
+        "byCategory": {
+          "/monthly/en/Additional_Information": 19,
+          "/monthly/en/Additional_Information/Errors": 3,
+          "/monthly/en": 2,
+          "/monthly/en/Drag_And_Drop": 1,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Overview": 6,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Audio": 24,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Buffers": 11,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Cameras": 3,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Collisions": 5,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Common": 18,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Data_Structures": 23,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Data_Types": 4,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference": 1,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Drawing": 24,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Files": 11,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Game": 5,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Gamepad": 10,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Instance": 19,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Instance_Vars": 10,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Layers": 2,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Loops": 6,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Miscellaneous": 3,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Mouse_And_Keyboard": 11,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Movement": 16,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Particles": 25,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Paths": 7,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Random": 4,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Rooms": 8,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Sequences": 11,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Switch": 4,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Tiles": 13,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Time_Sources": 23,
+          "/monthly/en/Drag_And_Drop/Drag_And_Drop_Reference/Timelines": 5,
+          "/monthly/en/GameMaker_Language/GML_Overview": 20,
+          "/monthly/en/GameMaker_Language/GML_Overview/Functions": 1,
+          "/monthly/en/GameMaker_Language/GML_Overview/Instance Keywords": 4,
+          "/monthly/en/GameMaker_Language/GML_Overview/Language_Features": 16,
+          "/monthly/en/GameMaker_Language/GML_Overview/Structs": 1,
+          "/monthly/en/GameMaker_Language/GML_Overview/Variables/Builtin_Global_Variables": 6,
+          "/monthly/en/GameMaker_Language/GML_Overview/Variables": 4,
+          "Asset_Management/Animation_Curves": 10,
+          "Asset_Management": 1,
+          "Asset_Management/Assets_And_Tags": 12,
+          "Asset_Management/Audio": 40,
+          "Asset_Management/Audio/Audio_Buffers": 10,
+          "Asset_Management/Audio/Audio_Effects": 10,
+          "Asset_Management/Audio/Audio_Emitters": 22,
+          "Asset_Management/Audio/Audio_Groups": 12,
+          "Asset_Management/Audio/Audio_Listeners": 12,
+          "Asset_Management/Audio/Audio_Loop_Points": 7,
+          "Asset_Management/Audio/Audio_Synchronisation": 12,
+          "Asset_Management/Extensions": 7,
+          "Asset_Management/Fonts": 28,
+          "Asset_Management/Instances/Deactivating_Instances": 9,
+          "Asset_Management/Instances/Instance_Variables": 23,
+          "Asset_Management/Instances": 20,
+          "Asset_Management/Objects/Object_Events": 10,
+          "Asset_Management/Objects": 17,
+          "Asset_Management/Particle_Systems": 1,
+          "Asset_Management/Paths/Path_Manipulation": 21,
+          "Asset_Management/Paths/Path_Variables": 8,
+          "Asset_Management/Paths": 15,
+          "Asset_Management/Rooms/Background_Layers": 27,
+          "Asset_Management/Rooms/Filter_Effect_Layers": 15,
+          "Asset_Management/Rooms/General_Layer_Functions": 41,
+          "Asset_Management/Rooms/Particle_System_Layers": 18,
+          "Asset_Management/Rooms": 30,
+          "Asset_Management/Rooms/Sequence_Layers": 27,
+          "Asset_Management/Rooms/Sprite_Layers": 25,
+          "Asset_Management/Rooms/Text_Functions": 47,
+          "Asset_Management/Rooms/Tile_Map_Layers": 41,
+          "Asset_Management/Rooms/UI_Layers": 2,
+          "Asset_Management/Scripts": 5,
+          "Asset_Management/Sequences": 14,
+          "Asset_Management/Sequences/Sequence_Structs": 5,
+          "Asset_Management/Shaders": 18,
+          "Asset_Management/Sprites": 3,
+          "Asset_Management/Sprites/Skeletal_Animation/Animation": 17,
+          "Asset_Management/Sprites/Skeletal_Animation/Attachments": 9,
+          "Asset_Management/Sprites/Skeletal_Animation/Bones": 6,
+          "Asset_Management/Sprites/Skeletal_Animation/Drawing_And_Miscellaneous": 13,
+          "Asset_Management/Sprites/Skeletal_Animation": 1,
+          "Asset_Management/Sprites/Skeletal_Animation/Skins": 5,
+          "Asset_Management/Sprites/Skeletal_Animation/Slots": 8,
+          "Asset_Management/Sprites/Sprite_Information": 20,
+          "Asset_Management/Sprites/Sprite_Instance_Variables": 19,
+          "Asset_Management/Sprites/Sprite_Manipulation": 36,
+          "Asset_Management/Tilsets": 5,
+          "Asset_Management/Timelines": 15,
+          "Asynchronous_Functions": 1,
+          "Asynchronous_Functions/Cloud_Saving": 4,
+          "Asynchronous_Functions/Dialog": 7,
+          "Asynchronous_Functions/Facebook": 1,
+          "Asynchronous_Functions/HTTP": 9,
+          "Asynchronous_Functions/Push_Notifications": 1,
+          "Buffers": 47,
+          "Cameras_And_Display": 26,
+          "Cameras_And_Display/Cameras_And_Viewports": 59,
+          "Cameras_And_Display/The_Game_Window": 43,
+          "Data_Structures/DS_Grids": 40,
+          "Data_Structures/DS_Lists": 22,
+          "Data_Structures/DS_Maps": 31,
+          "Data_Structures/DS_Priority_Queues": 17,
+          "Data_Structures/DS_Queues": 13,
+          "Data_Structures/DS_Stacks": 12,
+          "Data_Structures": 3,
+          "Debugging": 48,
+          "Drawing/Basic_Forms": 24,
+          "Drawing/Colour_And_Alpha": 18,
+          "Drawing/Depth_And_Stencil_Buffer": 1,
+          "Drawing": 6,
+          "Drawing/GPU_Control": 66,
+          "Drawing/Lighting": 9,
+          "Drawing/Mipmapping": 25,
+          "Drawing/Particles/Particle_Emitters": 13,
+          "Drawing/Particles/Particle_Systems": 24,
+          "Drawing/Particles/Particle_Types": 29,
+          "Drawing/Particles": 10,
+          "Drawing/Primitives": 45,
+          "Drawing/Sprites_And_Tiles": 20,
+          "Drawing/Surfaces": 42,
+          "Drawing/Text": 16,
+          "Drawing/Textures": 25,
+          "Drawing/Videos": 16,
+          "File_Handling/Binary_Files": 9,
+          "File_Handling/Encoding_And_Hashing": 19,
+          "File_Handling/File_Directories": 8,
+          "File_Handling": 1,
+          "File_Handling/File_System": 19,
+          "File_Handling/Ini_Files": 12,
+          "File_Handling/Text_Files": 14,
+          "Flex_Panels": 2,
+          "Flex_Panels/Function_Reference/Styling_Functions": 51,
+          "Flex_Panels/Function_Reference": 18,
+          "GML_Reference.htm": 1,
+          "GXC/File_System": 1,
+          "GXC": 1,
+          "Game_Input/Device_Input": 15,
+          "Game_Input/GamePad_Input": 27,
+          "Game_Input": 1,
+          "Game_Input/Gesture_Input": 24,
+          "Game_Input/Keyboard_Input": 18,
+          "Game_Input/Mouse_Input": 11,
+          "Game_Input/Virtual_Keys_And_Keyboards": 10,
+          "Garbage_Collection": 10,
+          "General_Game_Control": 19,
+          "In_App_Purchases": 2,
+          "Live_Wallpapers": 3,
+          "Maths_And_Numbers/Angles_And_Distance": 29,
+          "Maths_And_Numbers/Date_And_Time": 54,
+          "Maths_And_Numbers": 1,
+          "Maths_And_Numbers/Matrix_Functions": 18,
+          "Maths_And_Numbers/Number_Functions": 31,
+          "Movement_And_Collisions/Collisions": 25,
+          "Movement_And_Collisions/Motion_Planning": 22,
+          "Movement_And_Collisions/Movement": 15,
+          "Movement_And_Collisions": 1,
+          "Networking": 18,
+          "OS_And_Compiler": 32,
+          "Physics/Fixtures": 27,
+          "Physics/Forces": 7,
+          "Physics/Joints": 15,
+          "Physics": 5,
+          "Physics/Physics_Variables": 29,
+          "Physics/Soft_Body_Particles": 45,
+          "Physics/The_Physics_World": 8,
+          "Steam": 1,
+          "Strings": 50,
+          "Time_Sources": 26,
+          "UWP_And_XBox_Live/Match_Making": 11,
+          "UWP_And_XBox_Live/Saving_Data": 4,
+          "UWP_And_XBox_Live/Stats_And_Leaderboards": 20,
+          "UWP_And_XBox_Live": 1,
+          "UWP_And_XBox_Live/Users_And_Accounts": 24,
+          "Variable_Functions": 95,
+          "Web_And_HTML5": 18,
+          "/monthly/en/GameMaker_Language": 1,
+          "/monthly/en/IDE_Navigation": 5,
+          "/monthly/en/IDE_Navigation/Menus": 9,
+          "/monthly/en/IDE_Tools": 12,
+          "/monthly/en/IDE_Tools/Source_Control": 7,
+          "/monthly/en/IDE_Tools/The_Debugger": 2,
+          "/monthly/en/Introduction": 10,
+          "/monthly/en/Introduction/Marketplace": 10,
+          "/monthly/en/Quick_Start_Guide": 11,
+          "/monthly/en/Setting_Up_And_Version_Information": 10,
+          "/monthly/en/Setting_Up_And_Version_Information/IDE_Preferences": 28,
+          "/monthly/en/Setting_Up_And_Version_Information/IDE_Preferences/General": 18,
+          "/monthly/en/Setting_Up_And_Version_Information/Platform_Preferences": 8,
+          "/monthly/en/Settings": 10,
+          "/monthly/en/Settings/Game_Options": 11,
+          "/monthly/en/Settings/Runner_Details": 3,
+          "/monthly/en/Settings/Texture_Information": 4,
+          "/monthly/en/The_Asset_Editors/Animation_Curve_Properties": 1,
+          "/monthly/en/The_Asset_Editors": 18,
+          "/monthly/en/The_Asset_Editors/Code_Editor_Properties": 8,
+          "/monthly/en/The_Asset_Editors/Extension_Creation": 6,
+          "/monthly/en/The_Asset_Editors/Extension_Creation/Source_Files": 2,
+          "/monthly/en/The_Asset_Editors/Object_Properties": 10,
+          "/monthly/en/The_Asset_Editors/Object_Properties/Async_Events": 14,
+          "/monthly/en/The_Asset_Editors/Particle_System_Properties": 1,
+          "/monthly/en/The_Asset_Editors/Room_Properties/FX": 1,
+          "/monthly/en/The_Asset_Editors/Room_Properties": 7,
+          "/monthly/en/The_Asset_Editors/Sequence_Properties": 8,
+          "/monthly/en/The_Asset_Editors/Sprite_Properties": 2,
+          "/monthly/en/The_Asset_Editors/Tile_Set_Editors": 3,
+          "/monthly/en/The_IDE": 2,
+          "/monthly/en/The_IDE/Preferences_And_Information": 1
+        },
+        "runtimeSymbolCoverage": "not measured",
+        "exactRuntimeCompatibility": "not established",
+        "offlineManualVersion": "2024.14.3.124",
+        "archiveHash": "564d98e8e173390ebcaeaa85238fdc30205fa804ea30314139587bd5485f1849"
+      },
+      "hints": [
+        {
+          "path": "scripts/Collsion_Helpers/Collsion_Helpers.gml",
+          "code": "GMDOC001",
+          "severity": "warning",
+          "line": 5,
+          "message": "Abs call has 0 arguments; documented arity differs",
+          "sources": [
+            "https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/abs.htm"
+          ]
+        }
+      ],
+      "compatibility": "exact-runtime support not inferred from manual channel"
+    },
+    "baselineCompile": {
+      "status": "passed",
+      "verificationLevel": "build-check",
+      "profile": {
+        "target": "windows",
+        "runtime": "vm",
+        "toolchain": "GMS2@2024.14.4",
+        "config": "Default",
+        "timeout": 180,
+        "docsChannel": "project",
+        "language": "en"
+      },
+      "process": {
+        "command": [
+          "C:\\Users\\johns\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+          "C:\\Agent Tools\\game-maker\\node_modules\\@gamemaker\\gm-cli\\dist\\cli.js",
+          "compile",
+          "C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp",
+          "--target=windows",
+          "--runtime=vm",
+          "--toolchain=GMS2@2024.14.4",
+          "--config=Default",
+          "--cache-dir=C:\\Agent Tools\\game-maker\\.gm-cli-cache",
+          "--verbose"
+        ],
+        "exitCode": 0,
+        "stdout": "=== Downloading tools ===\nFound project-tool\nFound gmpm\nFound package-tool\nTools downloaded\n=== Downloading Igor ===\nIgor downloaded\n=== Fetching license ===\nLicense fetched\n=== Restoring prefabs ===\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe PREFABS RESTORE SOURCE=C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp PACKAGETOOL=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\package-tool\\node_modules\\@gm-tools\\package-tool-win-x64\\PackageTool.exe GMPM_DLL=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\gmpm\\node_modules\\@gm-tools\\gmpm-win-x64\\gmpm.dll PACKAGETOOLVERBOSE=TRUE PREFABSFOLDER=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\nProjectTool - Version 2026.0.176\n--------------------------------\nChecking 'VERSIONED' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp' - True/True : 20\nChecking 'VERS0' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp' - True/False : 20\nChecking 'MVC' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp' - False/False : 20\nChecking 'GMX' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp' - False/False : 20\nSetting up CoreResources for VERSIONED\nRESOURCETYPESPATH file path missing. Conversion will target the resource versions corresponding to this release of ProjectTool.\nChanging the class revisions of a VERSIONED file\nClass count: 140\nSource: C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp\nDestination: C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp\nProject requested to be read only, 1 files would have been changed of 321\nLoading...\nCore Resources : Info - +++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 217.1375ms\nSuccess\nNo Missing Prefabs!\nProjectTool Successful\nPrefabs restored\n=== Installing runtime ===\nRuntime found\n=== Compiling for windows ===\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\igor\\windows\\x64\\Igor.exe -rp C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268 -cache C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM -project C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp -runtime VM -of C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\crafting_game_v3.win -lf C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist -prefabs C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs -v -projectool C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe -ac /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== -jsonErrors -config Default -- windows Compile\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\bin\\platform_setting_defaults.json\nOptions: C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\local_settings.json\nFailed to load Options from C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\local_settings.json\nSetting up the Asset compiler\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=12 /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== /gn=\"crafting_game_v3\" /td=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /cd=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /rtp=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\" /zpuf=\"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\" /prefabs=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\" /projecttool=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe\"   /m=windows /tgt=64 /nodnd /cfg=\"Default\" /o=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\" /sh=True /optionsini=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\options.ini\"  /cvm /baseproject=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\BaseProject\\BaseProject.yyp\" \"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp\" /preprocess=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /lf=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist\"\nFound Project Format 2\n+++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 288.001ms\nSuccess\nfinished merging assets from C:/Agent Tools/game-maker/.gm-cli-cache/prefabs/io.gamemaker.sdfshaders-1.0.0/io.gamemaker.sdfshaders-1.0.0.yyp.\nfinished merging assets from C:/Agent Tools/game-maker/.gmtool-work/verification/tmpudpeqyx5/baseline/crafting_game_v3.yyp.\nRelease build\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\ExtensionOptions.json\nOptionsIni\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\PlatformOptions.json\n[Compile] Run asset compiler\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=12 /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== /gn=\"crafting_game_v3\" /td=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /cd=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /rtp=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\" /zpuf=\"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\" /prefabs=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\" /projecttool=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe\"   /m=windows /tgt=64 /nodnd /cfg=\"Default\" /o=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\" /sh=True /optionsini=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\options.ini\"  /cvm /baseproject=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\BaseProject\\BaseProject.yyp\" \"C:\\Agent Tools\\game-maker\\.gmtool-work\\verification\\tmpudpeqyx5\\baseline\\crafting_game_v3.yyp\" /bt=run /rt=vm /arch=32 /lf=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist\"\nLooking for built-in fallback image in C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\bin\\BuiltinImages\nCompile Constants...\nfinished.\nRemove DnD...\nfinished.\nCompile Scripts...\nfinished.\nCompile Rooms...\nfinished..... 0 CC empty\nfinished..... 0 CC empty\nCompile Objects...\nfinished.... 0 empty events\nCompile Timelines...finished.\nCompile Triggers...\nfinished.\nCompile Extensions...Compile UI Layers...finished.\nGlobal scripts...\nfinished.\ncollapsing enums.\nFinal Compile...\nFinal Compile finished.\nSaving IFF file... C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\crafting_game_v3.win\nWriting Chunk... GEN8 size ... -0.00 MB\noption_game_speed=60\nWriting Chunk... OPTN size ... 0.00 MB\nWriting Chunk... LANG size ... 0.00 MB\nWriting Chunk... EXTN size ... 0.00 MB\nWriting Chunk... SOND size ... 0.00 MB\nWriting Chunk... AGRP size ... 0.00 MB\nWriting Chunk... SPRT size ... 0.00 MB\nWriting Chunk... BGND size ... 0.01 MB\nWriting Chunk... PATH size ... 0.00 MB\nWriting Chunk... SCPT size ... 0.00 MB\nWriting Chunk... GLOB size ... 0.01 MB\nWriting Chunk... SHDR size ... 0.00 MB\nWriting Chunk... FONT size ... 0.06 MB\nWriting Chunk... TMLN size ... 0.00 MB\nWriting Chunk... OBJT size ... 0.00 MB\nWriting Chunk... FEDS size ... 0.01 MB\nWriting Chunk... ACRV size ... 0.00 MB\nWriting Chunk... SEQN size ... 0.00 MB\nWriting Chunk... TAGS size ... 0.00 MB\nWriting Chunk... ROOM size ... 0.00 MB\nWriting Chunk... UILR size ... 0.01 MB\nWriting Chunk... DAFL size ... 0.00 MB\nWriting Chunk... EMBI size ... 0.00 MB\nWriting Chunk... PSEM size ... 0.00 MB\nWriting Chunk... PSYS size ... 0.00 MB\nWriting Chunk... TPAGE size ... 0.00 MB\nTexture Group - __YY__0fallbacktexture.png_YYG_AUTO_GEN_TEX_GROUP_NAME_\nTexture Group - Default\nWriting Chunk... TGIN size ... 0.00 MB\nWriting Chunk... CODE size ... 0.00 MB\nWriting Chunk... VARI size ... 1.51 MB\nWriting Chunk... FUNC size ... 0.06 MB\nWriting Chunk... FEAT size ... 0.01 MB\nWriting Chunk... STRG size ... 0.00 MB\nWriting Chunk... TXTR size ... 0.22 MB\n0 Compressing texture... \nwriting texture __yy__0fallbacktexture.png_yyg_auto_gen_tex_group_name__0.yytex... \n1 Compressing texture... writing texture default_0.yytex... \n2 Compressing texture... writing texture default_1.yytex... \n3 Compressing texture... writing texture default_2.yytex... \n4 Compressing texture... writing texture default_3.yytex... \n5 Compressing texture... writing texture default_4.yytex... \n6 Compressing texture... writing texture default_5.yytex... \n7 Compressing texture... writing texture default_6.yytex... \n8 Compressing texture... writing texture default_7.yytex... \n9 Compressing texture... writing texture default_8.yytex... \n10 Compressing texture... writing texture default_9.yytex... \n11 Compressing texture... writing texture default_10.yytex... \n12 Compressing texture... writing texture default_11.yytex... \n13 Compressing texture... \nwriting texture default_12.yytex... \n14 Compressing texture... writing texture default_13.yytex... \n15 Compressing texture... writing texture default_14.yytex... \n16 Compressing texture... writing texture default_15.yytex... \n17 Compressing texture... writing texture default_16.yytex... \n18 Compressing texture... writing texture default_17.yytex... \n19 Compressing texture... writing texture default_18.yytex... \n20 Compressing texture... writing texture default_19.yytex... \nWriting Chunk... AUDO size ... 1.09 MB\nStats : GMA : Elapsed=1750.4769\nStats : GMA : sp=101,au=20,bk=2,pt=0,sc=924,sh=8,fo=2,tl=0,ob=38,ro=3,da=1,ex=0,ma=6,fm=0xC040B29D7FFE2EA4\nIgor complete.\nCompilation finished\n",
+        "stderr": "Latest available version is 2.4.1 (currently running 2.3.0), upgrade with \"npm install -g @gamemaker/gm-cli\"\n",
+        "durationSeconds": 4.125,
+        "timedOut": false
+      },
+      "diagnostics": [],
+      "projectChanges": {
+        "created": [],
+        "deleted": [],
+        "modified": []
+      },
+      "resolvedRuntimeVersions": [
+        "2024.14.4.268"
+      ],
+      "versionEvidence": "compiler log",
+      "completedAt": "2026-10-03T19:06:20.278407+00:00"
+    },
+    "status": "failed",
+    "staleFiles": {
+      "created": [],
+      "deleted": [],
+      "modified": []
+    },
+    "completedAt": "2026-10-03T19:06:29.178299+00:00"
+  },
+  "scenario": {
+    "status": "failed",
+    "verificationLevel": "gameplay-assertions",
+    "records": [],
+    "problems": [
+      "suite must execute at least one assertion",
+      "assertion inventory missing, duplicate, or unexpected",
+      "missing or misplaced final completion record",
+      "runtime process failed"
+    ],
+    "assertionCount": 0,
+    "runId": "68f663f6dbe448239b5f284cef42f050",
+    "planId": "11dfc0e98ee662662451097348afa0e013ef7bf0579b334ff15a946c6f8922bd",
+    "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+    "harnessDigest": "6e4969f85e1e15c1ca1c572794b002a420f1d6e6eaf81d39b17bf58cac30f636",
+    "suiteDigest": "0aa91c7c65c92c532c56357dd67269ca53bb5511bd3233c3b0a1a0cc216dfecd",
+    "profile": {
+      "target": "windows",
+      "runtime": "vm",
+      "toolchain": "GMS2@2024.14.4",
+      "config": "Default",
+      "timeout": 180,
+      "docsChannel": "project",
+      "language": "en"
+    },
+    "process": {
+      "command": [
+        "C:\\Users\\johns\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+        "C:\\Agent Tools\\game-maker\\node_modules\\@gamemaker\\gm-cli\\dist\\cli.js",
+        "run",
+        "C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp",
+        "--target=windows",
+        "--runtime=vm",
+        "--toolchain=GMS2@2024.14.4",
+        "--config=Default",
+        "--cache-dir=C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache",
+        "--verbose"
+      ],
+      "exitCode": 1,
+      "stdout": "=== Downloading tools ===\nInstalling project-tool\ncmd.exe /c npm.cmd --registry https://gmpm.gamemaker.io --no-save --verbose --no-package-lock --global --prefix C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\project-tool install @gm-tools/project-tool-win-x64\nnpm verbose cli C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js\nnpm info using npm@10.8.2\nnpm info using node@v20.20.2\nnpm verbose title npm install @gm-tools/project-tool-win-x64\nnpm verbose argv \"--registry\" \"https://gmpm.gamemaker.io\" \"--no-save\" \"--loglevel\" \"verbose\" \"--no-package-lock\" \"--global\" \"--prefix\" \"C:\\\\Agent Tools\\\\game-maker\\\\.gmtool-work\\\\scenarios\\\\68f663f6dbe448239b5f284cef42f050\\\\cache\\\\project-tool\" \"install\" \"@gm-tools/project-tool-win-x64\"\nnpm verbose logfile logs-max:10 dir:C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_35_479Z-\nnpm verbose logfile C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_35_479Z-debug-0.log\nnpm http fetch GET 200 https://gmpm.gamemaker.io/@gm-tools%2fproject-tool-win-x64 195ms (cache revalidated)\nadded 1 package in 2s\nnpm verbose cwd C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\nnpm verbose os Windows_NT 10.0.26200\nnpm verbose node v20.20.2\nnpm verbose npm  v10.8.2\nnpm verbose exit 0\nnpm info ok\nInstalling gmpm\ncmd.exe /c npm.cmd --registry https://gmpm.gamemaker.io --no-save --verbose --no-package-lock --global --prefix C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\gmpm install @gm-tools/gmpm-win-x64\nnpm verbose cli C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js\nnpm info using npm@10.8.2\nnpm info using node@v20.20.2\nnpm verbose title npm install @gm-tools/gmpm-win-x64\nnpm verbose argv \"--registry\" \"https://gmpm.gamemaker.io\" \"--no-save\" \"--loglevel\" \"verbose\" \"--no-package-lock\" \"--global\" \"--prefix\" \"C:\\\\Agent Tools\\\\game-maker\\\\.gmtool-work\\\\scenarios\\\\68f663f6dbe448239b5f284cef42f050\\\\cache\\\\gmpm\" \"install\" \"@gm-tools/gmpm-win-x64\"\nnpm verbose logfile logs-max:10 dir:C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_37_591Z-\nnpm verbose logfile C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_37_591Z-debug-0.log\nnpm http fetch GET 200 https://gmpm.gamemaker.io/@gm-tools%2fgmpm-win-x64 157ms (cache revalidated)\nadded 1 package in 833ms\nnpm verbose cwd C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\nnpm verbose os Windows_NT 10.0.26200\nnpm verbose node v20.20.2\nnpm verbose npm  v10.8.2\nnpm verbose exit 0\nnpm info ok\nInstalling package-tool\ncmd.exe /c npm.cmd --registry https://gmpm.gamemaker.io --no-save --verbose --no-package-lock --global --prefix C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\package-tool install @gm-tools/package-tool-win-x64\nnpm verbose cli C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js\nnpm info using npm@10.8.2\nnpm info using node@v20.20.2\nnpm verbose title npm install @gm-tools/package-tool-win-x64\nnpm verbose argv \"--registry\" \"https://gmpm.gamemaker.io\" \"--no-save\" \"--loglevel\" \"verbose\" \"--no-package-lock\" \"--global\" \"--prefix\" \"C:\\\\Agent Tools\\\\game-maker\\\\.gmtool-work\\\\scenarios\\\\68f663f6dbe448239b5f284cef42f050\\\\cache\\\\package-tool\" \"install\" \"@gm-tools/package-tool-win-x64\"\nnpm verbose logfile logs-max:10 dir:C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_38_678Z-\nnpm verbose logfile C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_38_678Z-debug-0.log\nnpm http fetch GET 200 https://gmpm.gamemaker.io/@gm-tools%2fpackage-tool-win-x64 145ms (cache revalidated)\nadded 1 package in 1s\nnpm verbose cwd C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\nnpm verbose os Windows_NT 10.0.26200\nnpm verbose node v20.20.2\nnpm verbose npm  v10.8.2\nnpm verbose exit 0\nnpm info ok\nTools downloaded\n=== Downloading Igor ===\n  extracting: windows/x64/Igor.dll.config\n  extracting: windows/x64/Igor.pdb\n  extracting: windows/x64/Igor.exe\n  extracting: windows/x64/Igor.dll\nIgor downloaded\n=== Fetching license ===\nUsing guest access key\nRelease build\nIgor complete.\nLicense fetched\n=== Restoring prefabs ===\nC:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe PREFABS RESTORE SOURCE=C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp PACKAGETOOL=C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\package-tool\\node_modules\\@gm-tools\\package-tool-win-x64\\PackageTool.exe GMPM_DLL=C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\gmpm\\node_modules\\@gm-tools\\gmpm-win-x64\\gmpm.dll PACKAGETOOLVERBOSE=TRUE PREFABSFOLDER=C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\prefabs\nProjectTool - Version 2026.0.176\n--------------------------------\nChecking 'VERSIONED' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - True/True : 20\nChecking 'VERS0' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - True/False : 20\nChecking 'MVC' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - False/False : 20\nChecking 'GMX' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - False/False : 20\nSetting up CoreResources for VERSIONED\nRESOURCETYPESPATH file path missing. Conversion will target the resource versions corresponding to this release of ProjectTool.\nChanging the class revisions of a VERSIONED file\nClass count: 140\nSource: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp\nDestination: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp\nProject requested to be read only, 1 files would have been changed of 321\nLoading...\nCore Resources : Info - Cannot load project or resource because loading failed with the following errors:\n=== Prefab libraries that cannot be located on your system ===\nCannot find the project folder for prefab package 'io.gamemaker.sdfshaders-1.0.0'.\n- Tried: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\prefabs\n- Tried: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\prefabs\n\nFailed: Cannot load project or resource because loading failed with the following errors:\n=== Prefab libraries that cannot be located on your system ===\nCannot find the project folder for prefab package 'io.gamemaker.sdfshaders-1.0.0'.\n- Tried: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\prefabs\n- Tried: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\prefabs\n\nEXEC PACKAGE TOOL: find package=\"io.gamemaker.sdfshaders-1.0.0\" registry=\"https://gmpm.gamemaker.io\" gmpm_dll= \"C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\gmpm\\node_modules\\@gm-tools\\gmpm-win-x64\\gmpm.dll\" path=\"C:\\Users\\johns\\AppData\\Local\\Temp\\packagetool\" installall=true prefabsfolder=\"C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\cache\\prefabs\" \nPackageTool@2026.0.30\n---------------------\ngmpm: Initialised GMPM with NPM Backend\n\nFound package: \n\t Package: @gm-ide-prefabs/gm-shader-sdf\n\t Registry: https://gmpm.gamemaker.io\ngmpm: cmd.exe /C \"npm install --ignore-scripts --no-audit --registry https://gmpm.gamemaker.io --loglevel verbose\"\n\ngmpm: npm verbose cli C:\\Program Files\\nodejs\\node.exe C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js\n\ngmpm: npm info using npm@10.8.2\n\ngmpm: npm info using node@v20.20.2\n\ngmpm: npm verbose title npm install\n\ngmpm: npm verbose argv \"install\" \"--ignore-scripts\" \"--no-audit\" \"--registry\" \"https://gmpm.gamemaker.io\" \"--loglevel\" \"verbose\"\n\ngmpm: npm verbose logfile logs-max:10 dir:C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_47_191Z-\n\ngmpm: npm verbose logfile C:\\Agent Tools\\game-maker\\.npm-cache\\_logs\\2026-10-03T19_06_47_191Z-debug-0.log\n\ngmpm: npm http fetch GET 200 https://gmpm.gamemaker.io/@gm-ide-prefabs%2fgm-shader-sdf 160ms (cache updated)\n\ngmpm: added 1 package in 644ms\n\ngmpm: npm verbose cwd C:\\Users\\johns\\AppData\\Local\\Temp\\packagetool\\gm-ide-prefabs\\gm-shader-sdf\n\ngmpm: npm verbose os Windows_NT 10.0.26200\n\ngmpm: npm verbose node v20.20.2\n\ngmpm: npm verbose npm  v10.8.2\n\ngmpm: npm verbose exit 0\n\ngmpm: npm info ok\n\ngmpm: cmd.exe /C \"node -p \"\"require('./package.json').name\"\"\"\n\ngmpm: @gm-ide-prefabs/gm-shader-sdf\n\n\ngmpm: cmd.exe /C \"node -p \"\"require('./package.json').version\"\"\"\n\ngmpm: 1.0.0\n\n\ngmpm: cmd.exe /C \"node -p \"\"require('./package.json').gm.destination\"\"\"\n\ngmpm: gm-ide-prefabs/gm-shader-sdf\n\n\nPackageTool Successful\n\n\nChecking 'VERSIONED' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - True/True : 20\nChecking 'VERS0' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - True/False : 20\nChecking 'MVC' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - False/False : 20\nChecking 'GMX' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp' - False/False : 20\nRESOURCETYPESPATH file path missing. Conversion will target the resource versions corresponding to this release of ProjectTool.\nChanging the class revisions of a VERSIONED file\nClass count: 140\nSource: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp\nDestination: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\project\\gmtool_test_68f663f6dbe448239b5f284cef42f050.yyp\nProject requested to be read only, 1 files would have been changed of 321\nLoading...\nCore Resources : Info - Cannot load project because linking failed with the following errors:\nC:/Agent Tools/game-maker/.gmtool-work/scenarios/68f663f6dbe448239b5f284cef42f050/project/notes/whats_next/whats_next.yy(8,4): Cannot find folder path 'crafting_game_v3.yyp'.\n\nFailed: Cannot load project because linking failed with the following errors:\nC:/Agent Tools/game-maker/.gmtool-work/scenarios/68f663f6dbe448239b5f284cef42f050/project/notes/whats_next/whats_next.yy(8,4): Cannot find folder path 'crafting_game_v3.yyp'.\n\nNo project loaded\nProjectTool Failed\n",
+      "stderr": "Latest available version is 2.4.1 (currently running 2.3.0), upgrade with \"npm install -g @gamemaker/gm-cli\"\nFailed to restore prefabs\nCommand failed:\nFailed to restore project. \"ProjectTool PREFABS RESTORE\" exited with code 1\n",
+      "durationSeconds": 13.359,
+      "timedOut": false
+    },
+    "artifacts": "C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\artifacts",
+    "completedAt": "2026-10-03T19:06:48.484659+00:00",
+    "screenshots": [],
+    "visualReview": "not-requested",
+    "saveIsolation": {
+      "cloneName": "gmtool_test_68f663f6dbe448239b5f284cef42f050",
+      "explicitPathRoot": "C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\68f663f6dbe448239b5f284cef42f050\\artifacts",
+      "arbitraryCodeSandbox": false
+    }
+  },
+  "projectUnchanged": true
+}

@@ -1,0 +1,340 @@
+# PathTrawler Class Documentation
+
+## Overview
+
+The `PathTrawler` class simplifies path-following behaviors by extracting GameMaker paths into a series of discrete waypoints. It provides utilities for navigating between these points, calculating movement vectors, and visualizing the path during development.
+
+```gml
+/// @brief A utility class for following a path by extracting waypoints at set intervals.
+/// The PathTrawler class extracts a path into discrete points and provides navigation utilities.
+function PathTrawler() constructor {
+    // Properties and methods defined...
+}
+```
+
+## Properties
+
+- **points** (Array): Array of extracted waypoints, each containing x, y coordinates and a position ratio
+- **radius** (Real): The proximity threshold that determines when an object has reached a waypoint
+- **index** (Real): The current waypoint index that the object is moving toward
+- **last_index** (Real): The index of the final waypoint in the path
+- **start_over** (Bool): When true, the path loops back to the beginning after reaching the end
+- **ready** (Bool): Indicates whether the path has been successfully extracted and is ready to use
+
+## Methods
+
+### extract_path(_path, _stepSize)
+
+Extracts a GameMaker path into discrete waypoints spaced at regular intervals.
+
+```gml
+/// @brief Extracts a path into discrete points spaced at given intervals.
+/// @param {Asset} _path The path asset to extract points from.
+/// @param {Real} _stepSize The distance between each extracted point.
+static extract_path = function(_path, _stepSize = 32) {
+    // Implementation...
+}
+```
+
+This method:
+1. Calculates the total length of the path
+2. Determines how many waypoints to create based on the step size
+3. Extracts x, y coordinates at each interval along the path
+4. Stores each point along with its ratio (position percentage along the path)
+5. Sets the proximity radius to half the step size by default
+
+### get_next_point(obj_x, obj_y)
+
+Determines the next waypoint based on an object's current position.
+
+```gml
+/// @brief Retrieves the next point in the path relative to an object's position.
+/// @param {Real} obj_x The x-coordinate of the object.
+/// @param {Real} obj_y The y-coordinate of the object.
+/// @return {Struct|Real} Returns the next point struct or -1 if the path is not ready.
+static get_next_point = function(obj_x, obj_y) {
+    // Implementation...
+}
+```
+
+This method:
+1. Checks if the path is ready to use
+2. Calculates the distance between the object and the current waypoint
+3. Advances to the next waypoint if the object is within the proximity radius
+4. Handles path completion based on the `start_over` property
+5. Returns the next waypoint as a struct with x, y, and r (ratio) properties
+
+### get_next_vector(obj_x, obj_y, _speed)
+
+Computes a movement vector toward the next waypoint, scaled by a given speed.
+
+```gml
+/// @brief Computes the directional vector to the next point, scaled by a given speed.
+/// @param {Real} obj_x The x-coordinate of the object.
+/// @param {Real} obj_y The y-coordinate of the object.
+/// @param {Real} _speed The movement speed of the object.
+/// @return {Struct|Real} Returns a struct with x, y movement values or -1 if the path is not ready.
+static get_next_vector = function(obj_x, obj_y, _speed) {
+    // Implementation...
+}
+```
+
+This method:
+1. Gets the next waypoint using `get_next_point`
+2. Calculates the direction vector from the object to the waypoint
+3. Normalizes the vector and scales it by the provided speed
+4. Returns a struct with x and y components that can be applied to the object's position
+
+### draw_path_trawler()
+
+Visualizes the path and the current waypoint for debugging purposes.
+
+```gml
+/// @brief Draws the path and highlights the current point.
+static draw_path_trawler = function() {
+    // Implementation...
+}
+```
+
+This method:
+1. Draws each waypoint as a circle
+2. Connects waypoints with lines to show the complete path
+3. Highlights the current target waypoint in green
+4. Renders the path radius to show the proximity threshold
+
+### toString()
+
+Converts the path data to a JSON string for storage or debugging.
+
+```gml
+/// @brief Converts the extracted path points into a JSON string.
+/// @return {String} JSON representation of the points array.
+toString = function() {
+    // Implementation...
+}
+```
+
+## Usage Examples
+
+### Creating and Extracting a Path
+
+```gml
+// In a path controller object's Create event
+function create() {
+    // Create the path trawler
+    path_follower = new PathTrawler();
+    
+    // Extract a pre-defined path
+    var patrol_path = path_add();
+    path_add_point(patrol_path, 100, 100, 100);
+    path_add_point(patrol_path, 300, 150, 100);
+    path_add_point(patrol_path, 400, 300, 100);
+    path_add_point(patrol_path, 200, 350, 100);
+    path_add_point(patrol_path, 100, 100, 100);
+    
+    // Extract the path with 16-pixel steps
+    path_follower.extract_path(patrol_path, 16);
+    
+    // Enable looping
+    path_follower.start_over = true;
+    
+    // Clean up the original path, we only need the extracted points
+    path_delete(patrol_path);
+}
+```
+
+### Implementing Basic Path Following
+
+```gml
+// In an NPC's Step event
+function step() {
+    // Skip if path isn't ready
+    if (!path_follower.ready) return;
+    
+    // Get the movement vector scaled by NPC's speed
+    var move = path_follower.get_next_vector(x, y, movement_speed);
+    
+    // Apply the movement
+    if (move != -1) {
+        x += move.x;
+        y += move.y;
+        
+        // Update sprite direction based on movement
+        if (abs(move.x) > abs(move.y)) {
+            // Horizontal movement dominates
+            image_xscale = sign(move.x);
+        }
+    } else {
+        // Path completed (if not looping)
+        state = "idle";
+    }
+}
+```
+
+### Creating a Guard Patrol System
+
+```gml
+// In a guard controller's Create event
+function create_guard() {
+    // Initialize variables
+    state = "patrol";
+    alert_level = 0;
+    path_follower = new PathTrawler();
+    
+    // Load patrol path from room data
+    var patrol_asset = asset_get_index("path_guard_" + string(room_get_name(room)));
+    if (patrol_asset != -1) {
+        path_follower.extract_path(patrol_asset, 32);
+        path_follower.start_over = true; // Loop indefinitely
+    } else {
+        // No path found, default to stationary guard
+        state = "idle";
+    }
+}
+
+// In the guard's Step event
+function guard_step() {
+    switch (state) {
+        case "patrol":
+            // Follow patrol path
+            var move = path_follower.get_next_vector(x, y, patrol_speed);
+            if (move != -1) {
+                x += move.x;
+                y += move.y;
+                
+                // Look in movement direction
+                direction = point_direction(0, 0, move.x, move.y);
+                
+                // Check for player in sight
+                if (player_in_vision_cone()) {
+                    state = "alert";
+                    path_follower.ready = false; // Stop following path
+                }
+            }
+            break;
+            
+        case "alert":
+            // Chase player or investigate
+            // ...
+            break;
+            
+        case "idle":
+            // Stand still, maybe rotate occasionally
+            // ...
+            break;
+    }
+}
+```
+
+### Creating a Camera That Follows a Path
+
+```gml
+// Camera controller that moves along a predefined path
+function create_camera() {
+    // Create camera
+    camera = camera_create();
+    var vm = matrix_build_lookat(x, y, -10, x, y, 0, 0, 1, 0);
+    var pm = matrix_build_projection_ortho(800, 600, 1, 10000);
+    camera_set_view_mat(camera, vm);
+    camera_set_proj_mat(camera, pm);
+    view_camera[0] = camera;
+    
+    // Set up path for camera movement
+    cam_path = new PathTrawler();
+    cam_path.extract_path(path_camera_intro, 64);
+    cam_speed = 2; // Slow, cinematic movement
+}
+
+function update_camera() {
+    if (cam_path.ready) {
+        var move = cam_path.get_next_vector(camera_get_view_x(view_camera[0]) + 400, 
+                                        camera_get_view_y(view_camera[0]) + 300,
+                                        cam_speed);
+        
+        if (move != -1) {
+            // Update camera position
+            var target_x = camera_get_view_x(view_camera[0]) + move.x;
+            var target_y = camera_get_view_y(view_camera[0]) + move.y;
+            
+            var vm = matrix_build_lookat(target_x + 400, target_y + 300, -10, 
+                                        target_x + 400, target_y + 300, 0,
+                                        0, 1, 0);
+            camera_set_view_mat(view_camera[0], vm);
+        } else {
+            // Path completed, switch to player following
+            camera_mode = "follow_player";
+        }
+    }
+}
+```
+
+### Visualizing Paths During Development
+
+```gml
+// In a debug controller's Draw event (only active during development)
+function draw_debug() {
+    if (global.debug_mode) {
+        // Draw all paths for enemies
+        with (obj_enemy) {
+            if (path_follower.ready) {
+                path_follower.draw_path_trawler();
+            }
+        }
+        
+        // Draw player path if pathfinding
+        if (obj_player.path_follower.ready) {
+            obj_player.path_follower.draw_path_trawler();
+        }
+    }
+}
+```
+
+### Saving and Loading Path Data
+
+```gml
+// Save custom paths for level editor
+function save_custom_path() {
+    // Get JSON string of path points
+    var path_data = path_follower.toString();
+    
+    // Write to file
+    var file = file_text_open_write("paths/custom_path_" + string(path_id) + ".json");
+    file_text_write_string(file, path_data);
+    file_text_close(file);
+}
+
+// Load custom path
+function load_custom_path(path_id) {
+    // Create new path trawler
+    var custom_path = new PathTrawler();
+    
+    // Read JSON data
+    var file = file_text_open_read("paths/custom_path_" + string(path_id) + ".json");
+    var path_data = file_text_read_string(file);
+    file_text_close(file);
+    
+    // Parse JSON into points array
+    custom_path.points = json_parse(path_data);
+    custom_path.index = 0;
+    custom_path.last_index = array_length(custom_path.points) - 1;
+    custom_path.ready = true;
+    
+    return custom_path;
+}
+```
+
+## Technical Implementation Notes
+
+1. **Path Extraction**: Instead of using GameMaker's built-in path_start, this class extracts discrete points, allowing more control over the object's movement and behavior at each waypoint.
+
+2. **Distance-Based Advancement**: The system uses a radius around each point to determine when to advance to the next waypoint, which provides smoother movement than directly snapping to each point.
+
+3. **Vector-Based Movement**: By returning normalized vectors scaled by speed, the system allows for consistent movement regardless of the distance between waypoints.
+
+4. **Path Visualization**: The built-in visualization function helps debug path following during development, showing both the complete path and the current target point.
+
+5. **JSON Serialization**: The path data can be converted to JSON, allowing paths to be saved and loaded between game sessions or shared across different objects.
+
+6. **Path Completion Detection**: The system automatically detects when the path is completed and can either restart the path or signal completion through the ready flag.
+
+7. **Flexible Integration**: The class works with GameMaker's standard path functions but provides a higher-level abstraction for more complex path-following behaviors.

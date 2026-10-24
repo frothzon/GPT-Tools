@@ -1,0 +1,9 @@
+stats = new ActorStats(0, 1, 0, 0);
+start_pos = new Vector2(x,y);
+end_pos = new Vector2(x,y);
+z_pos = 0;
+z_pos_range = [0, 16];
+timer_max = 100;
+timer = 0;
+target_index = obj_player;
+tween = tween_linear;

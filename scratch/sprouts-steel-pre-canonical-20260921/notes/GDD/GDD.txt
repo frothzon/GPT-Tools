@@ -1,0 +1,20 @@
+
+---
+
+### 🎮 Game Name
+
+## *Sprout & Steel*
+
+### Systems To Implement
+**Crops**
+- Soil Object -> attach seed -> grow timer -> change into plant
+- Add crop data into plant array inside *init_game()*
+  
+**Quests**
+
+**Events**
+
+**Triggers**
+
+
+

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"draw_text_advanced",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"draw_text_advanced",
+  "parent":{
+    "name":"Textbox",
+    "path":"folders/Resources/Scripts/Textbox.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

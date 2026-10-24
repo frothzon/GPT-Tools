@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Tooltip",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Tooltip",
+  "parent":{
+    "name":"Textbox",
+    "path":"folders/Resources/Scripts/Textbox.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

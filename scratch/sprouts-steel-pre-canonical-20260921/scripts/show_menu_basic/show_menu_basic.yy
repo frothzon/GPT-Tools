@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"show_menu_basic",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"show_menu_basic",
+  "parent":{
+    "name":"Textbox",
+    "path":"folders/Resources/Scripts/Textbox.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

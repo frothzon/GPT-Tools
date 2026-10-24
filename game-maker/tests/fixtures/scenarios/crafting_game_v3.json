@@ -1,0 +1,19 @@
+{
+  "name": "crafting_game_v3_inventory_crafting_building",
+  "seed": 123,
+  "maxFrames": 30,
+  "bootstrap": {"create": "obj_button.Create", "step": "obj_button.Step.End", "preserveCreate": true},
+  "setup": "global.ITEM_DATA = {bag: new Static_Inventory()};\nBAG.insert_item({name: \"Wood\", amount: 8, visible: true});\nBAG.insert_item({name: \"Stone\", amount: 7, visible: true});\nstation = new CraftingStructure(\"Test\");\nstation.add_recipe({name: \"Test recipe\", description: \"Fixture\", sprite_index: spr_button, image_index: 0, result_object: obj_item_material, result_image_index: 0, ingredients: [{item_index: 0, amount: 2}], craft_time: 2, result_amount: 1});\nstation.selected_recipe_index = array_length(station.recipes) - 1;\nstation.craft_amount = 1;\nglobal.BUILDING_BLUEPRINTS = {archive: [{cost: [{item_index: 0, amount: 3}]}], active: [true]};\ncard = new BuildingCard(0);",
+  "tests": [
+    {"name": "inventory_upper_clamp", "frame": 1, "code": "bag_insert_item(BAG, 0, 100);", "assert": "BAG.get_item(0).amount == BAG.item_limit"},
+    {"name": "inventory_preserves_other_item", "frame": 1, "assert": "BAG.get_item(1).amount == 7"},
+    {"name": "inventory_lower_clamp", "frame": 2, "code": "bag_insert_item(BAG, 0, -100);", "assert": "BAG.get_item(0).amount == 0"},
+    {"name": "craft_failure_preserves_inventory", "frame": 3, "code": "station.on_craft_click(undefined);", "assert": "BAG.get_item(0).amount == 0 && !station.is_crafting && array_length(station.crafting_queue) == 0"},
+    {"name": "craft_success_charges_exact_inputs", "frame": 4, "code": "bag_insert_item(BAG, 0, 8); station.on_craft_click(undefined);", "assert": "BAG.get_item(0).amount == 6 && station.is_crafting"},
+    {"name": "craft_timer_waits", "frame": 5, "code": "station.update_recipe_progress();", "assert": "station.is_crafting && array_length(station.completed_recipe_queue) == 0"},
+    {"name": "craft_completion_emits_output_record", "frame": 6, "code": "station.update_recipe_progress(); completed = station.check_craft_completion();", "assert": "is_struct(completed) && completed.recipe_index == array_length(station.recipes) - 1 && completed.amount == 1 && !station.is_crafting"},
+    {"name": "building_affordability_rejects_insufficient_inventory", "frame": 7, "code": "bag_insert_item(BAG, 0, -100); card.update();", "assert": "!card.can_afford && !card.button.active && BAG.get_item(0).amount == 0"},
+    {"name": "building_affordability_accepts_sufficient_inventory", "frame": 8, "code": "bag_insert_item(BAG, 0, 5); card.update();", "assert": "card.can_afford && card.button.active && BAG.get_item(0).amount == 5"}
+  ],
+  "teardown": "station = undefined; card = undefined;"
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"enemy_shoot_projectile",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"enemy_shoot_projectile",
+  "parent":{
+    "name":"Enemies",
+    "path":"folders/Resources/Scripts/Enemies.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

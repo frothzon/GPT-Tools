@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"VerticalSlider",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"VerticalSlider",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Resources/Scripts/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

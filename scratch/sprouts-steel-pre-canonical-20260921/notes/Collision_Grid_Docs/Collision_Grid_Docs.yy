@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"v1",
+  "%Name":"Collision_Grid_Docs",
+  "name":"Collision_Grid_Docs",
+  "parent":{
+    "name":"Documentation",
+    "path":"folders/Resources/Scripts/MovingGrid/Documentation.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"v1",
+  "%Name":"Path_Trawler_Docs",
+  "name":"Path_Trawler_Docs",
+  "parent":{
+    "name":"Documentation",
+    "path":"folders/Resources/Scripts/MovingGrid/Documentation.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

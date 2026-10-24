@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"SoundManager",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SoundManager",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Resources/Scripts/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

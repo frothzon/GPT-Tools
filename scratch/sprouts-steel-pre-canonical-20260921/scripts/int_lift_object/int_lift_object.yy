@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"int_lift_object",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"int_lift_object",
+  "parent":{
+    "name":"Interactive",
+    "path":"folders/Resources/Scripts/Interactive.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "name": "gamemaker-agent-tools-runtime",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Pinned official GameMaker CLI used by gmtool",
+  "dependencies": {
+    "@gamemaker/gm-cli": "2.3.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
+

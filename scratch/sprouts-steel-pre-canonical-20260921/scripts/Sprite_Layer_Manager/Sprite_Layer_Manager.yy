@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Sprite_Layer_Manager",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Sprite_Layer_Manager",
+  "parent":{
+    "name":"Classes",
+    "path":"folders/Resources/Scripts/Classes.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

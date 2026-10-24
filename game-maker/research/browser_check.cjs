@@ -1,0 +1,26 @@
+const fs = require('node:fs');
+const {chromium} = require('C:/Users/johns/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{
+  const browser=await chromium.launch({headless:true,executablePath:'C:/Users/johns/AppData/Local/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-win64/chrome-headless-shell.exe'});
+  const page=await browser.newPage({viewport:{width:1440,height:960}});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(process.argv[2]);
+  await page.getByRole('heading',{name:'GameMaker Workbench'}).waitFor();
+  await page.getByLabel('Filter resources').fill('obj_player');
+  if(await page.locator('#resources details').count()<1)throw Error('Resource filter returned no player');
+  await page.getByRole('button',{name:'Code and context',exact:true}).click();
+  await page.locator('#code input').fill('bag_insert_item');
+  await page.getByRole('button',{name:'Load context',exact:true}).click();
+  await page.getByRole('heading',{name:/bag_insert_item/}).waitFor({timeout:45000});
+  await page.screenshot({path:'C:/Agent Tools/game-maker/research/workbench-code.png',fullPage:true});
+  await page.getByRole('button',{name:'Manual',exact:true}).click();
+  await page.locator('#manual select').selectOption('project');
+  await page.getByLabel('Manual query').fill('clamp');
+  await page.getByRole('button',{name:'Search',exact:true}).click();
+  await page.locator('#manual a').first().waitFor();
+  if(!await page.locator('#manual').innerText().then(t=>t.includes('clamp(val, min, max)')))throw Error('Manual signature missing');
+  await page.screenshot({path:'C:/Agent Tools/game-maker/research/workbench-manual.png',fullPage:true});
+  if(errors.length)throw Error(errors.join('\n'));
+  fs.writeFileSync('C:/Agent Tools/game-maker/research/browser-result.json',JSON.stringify({status:'passed',errors,checks:['resource filter','callable context','offline exact manual lookup']},null,2));
+  console.log('Browser checks passed');await browser.close();
+})().catch(e=>{console.error(e);process.exitCode=1});

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"Text_Blaster",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"Text_Blaster",
+  "parent":{
+    "name":"Textbox",
+    "path":"folders/Resources/Scripts/Textbox.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

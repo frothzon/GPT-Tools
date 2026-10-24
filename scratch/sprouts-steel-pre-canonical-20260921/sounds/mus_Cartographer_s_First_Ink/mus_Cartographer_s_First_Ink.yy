@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"mus_Cartographer_s_First_Ink",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":147.98367,
+  "exportDir":"",
+  "name":"mus_Cartographer_s_First_Ink",
+  "parent":{
+    "name":"Music",
+    "path":"folders/Resources/Audio/Music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_Cartographer_s_First_Ink.mp3",
+  "volume":1.0,
+}

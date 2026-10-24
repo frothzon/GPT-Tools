@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"instance_create_ext",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"instance_create_ext",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Resources/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

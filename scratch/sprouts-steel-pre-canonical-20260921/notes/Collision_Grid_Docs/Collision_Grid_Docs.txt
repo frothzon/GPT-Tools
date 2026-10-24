@@ -1,0 +1,277 @@
+# CollisionGrid Class Documentation
+
+## Overview
+
+The `CollisionGrid` class provides a comprehensive grid-based collision detection and pathfinding system. It supports multiple collision layers, allowing for complex environment interactions and movement validation across different types of obstacles.
+
+```gml
+/// @brief A Collision Grid system for managing object collision layers.
+/// This constructor initializes a grid-based collision detection system, allowing for pathfinding
+/// and movement validation across multiple layers of collision objects.
+function CollisionGrid() constructor {
+    // Properties and methods defined...
+}
+```
+
+## Properties
+
+- **grids** (Array): Stores multiple mp_grids, each representing a separate collision layer
+- **layerCount** (Real): Tracks the number of collision layers currently managed
+- **position** (Struct): Defines the grid's position and dimensions:
+- **x, y**: The starting coordinates of the grid (defaults to -10, -10)
+- **w, h**: The width and height of the grid (defaults to room size plus padding)
+- **dx, dy**: The cell size of the grid (defaults to 16x16 pixels)
+
+## Methods
+
+### reset(collObjectsArray)
+
+Resets and initializes the collision grid layers based on provided collision objects.
+
+```gml
+/// @brief Resets and initializes the collision grid layers.
+/// @param {Array} collObjectsArray An array of collision object instances, each defining a collision layer.
+static reset = function(collObjectsArray) {
+    // Implementation...
+}
+```
+
+This method:
+1. Updates the grid dimensions to match the current room size
+2. Destroys any existing mp_grids to prevent memory leaks
+3. Creates new mp_grids based on the number of collision object types
+4. Populates each grid with the corresponding collision objects
+
+### grid_set_path(layerId, path, obj, xto, yto)
+
+Sets a path through a specified grid layer, avoiding obstacles.
+
+```gml
+/// @brief Sets a path through the specified grid layer.
+/// @param {Real} layerId The index of the collision grid layer.
+/// @param {Asset} path The path asset to modify.
+/// @param {Instance} obj The object whose path is being set.
+/// @param {Real} xto The target x-coordinate.
+/// @param {Real} yto The target y-coordinate.
+/// @return {Bool} Returns true if a path was successfully created, otherwise false.
+static grid_set_path = function(layerId, path, obj, xto, yto) {
+    // Implementation...
+}
+```
+
+This method:
+1. Attempts to find a path from the object's current position to the target coordinates
+2. Uses the specified collision layer to determine what obstacles to avoid
+3. Returns a boolean indicating whether a valid path was found
+
+### grid_position_is_free(layerId, xx, yy)
+
+Checks if a specific position within a grid layer is free of obstacles.
+
+```gml
+/// @brief Checks if a position within a specified grid layer is free.
+/// @param {Real} layerId The index of the collision grid layer.
+/// @param {Real} xx The x-coordinate to check.
+/// @param {Real} yy The y-coordinate to check.
+/// @return {Bool} Returns true if the position is free (no collision), otherwise false.
+static grid_position_is_free = function(layerId, xx, yy) {
+    // Implementation...
+}
+```
+
+This method:
+1. Converts world coordinates to grid cell coordinates
+2. Checks if the specified cell is empty (value 0)
+3. Returns a boolean indicating whether the position is free of obstacles
+
+### move_object(layerId, obj, xto, yto)
+
+Moves an object within the grid, ensuring it does not collide with obstacles.
+
+```gml
+/// @brief Moves an object within the grid, ensuring it does not collide.
+/// @param {Real} layerId The index of the collision grid layer.
+/// @param {Instance} obj The object to move.
+/// @param {Real} xto The x movement offset.
+/// @param {Real} yto The y movement offset.
+static move_object = function(layerId, obj, xto, yto) {
+    // Implementation...
+}
+```
+
+This method:
+1. Attempts to move the object horizontally, checking for collisions
+2. Attempts to move the object vertically, checking for collisions
+3. Only updates the position when movement would not result in a collision
+
+## Usage Examples
+
+### Creating and Initializing the System
+
+```gml
+// Create a collision grid system in a controller object
+function create() {
+    // Create the collision grid
+    collision_system = new CollisionGrid();
+    
+    // Define collision layers (objects that represent different types of obstacles)
+    collision_layers = [
+        obj_wall,          // Layer 0: Solid walls (impassable for all entities)
+        obj_water,         // Layer 1: Water (impassable for ground units)
+        obj_low_obstacle   // Layer 2: Low obstacles (impassable for certain entities)
+    ];
+    
+    // Initialize the collision system with the defined layers
+    collision_system.reset(collision_layers);
+}
+```
+
+### Room Transition Management
+
+```gml
+// Reset collision grid when changing rooms
+function room_start() {
+    // Define collision layers for the new room
+    var layers = [
+        obj_wall,
+        obj_water,
+        obj_low_obstacle
+    ];
+    
+    // Reinitialize the collision system for the new room
+    collision_system.reset(layers);
+}
+```
+
+### Simple Character Movement
+
+```gml
+// Move a player character using keyboard input
+function step() {
+    // Calculate movement direction
+    var move_x = keyboard_check(vk_right) - keyboard_check(vk_left);
+    var move_y = keyboard_check(vk_down) - keyboard_check(vk_up);
+    
+    // Scale by movement speed
+    move_x *= movement_speed;
+    move_y *= movement_speed;
+    
+    // Move the player, avoiding wall collisions (layer 0)
+    collision_system.move_object(0, id, move_x, move_y);
+}
+```
+
+### Different Collision Layers for Different Entities
+
+```gml
+// Move different entities according to their movement capabilities
+function move_units() {
+    // Ground units can't move through walls or water
+    with (obj_ground_unit) {
+        var move_x = lengthdir_x(speed, direction);
+        var move_y = lengthdir_y(speed, direction);
+        
+        // Check both wall and water layers
+        if (collision_system.grid_position_is_free(0, x + move_x, y) && 
+            collision_system.grid_position_is_free(1, x + move_x, y)) {
+            x += move_x;
+        }
+        if (collision_system.grid_position_is_free(0, x, y + move_y) && 
+            collision_system.grid_position_is_free(1, x, y + move_y)) {
+            y += move_y;
+        }
+    }
+    
+    // Flying units only avoid walls
+    with (obj_flying_unit) {
+        var move_x = lengthdir_x(speed, direction);
+        var move_y = lengthdir_y(speed, direction);
+        
+        // Only check wall layer
+        collision_system.move_object(0, id, move_x, move_y);
+    }
+}
+```
+
+### Pathfinding for NPCs
+
+```gml
+// Set a path for an NPC to follow
+function find_path_to_player() {
+    // Create a path resource
+    if (!path_exists(path)) {
+        path = path_add();
+    }
+    
+    // Get player position
+    var player = instance_find(obj_player, 0);
+    if (player == noone) return false;
+    
+    // Based on the unit type, use the appropriate collision layer
+    var layer_id = is_flying ? 0 : 0; // Flying units only avoid walls, ground units would check layer 0 and 1
+    
+    // Try to find a path to the player
+    var success = collision_system.grid_set_path(layer_id, path, id, player.x, player.y);
+    
+    if (success) {
+        // Start following the path
+        path_start(path, movement_speed, path_action_stop, true);
+        return true;
+    } else {
+        // No path found
+        path_delete(path);
+        path = -1;
+        return false;
+    }
+}
+```
+
+### Validating Positions for Object Spawning
+
+```gml
+// Spawn items only in valid positions
+function spawn_item(item_type, room_area) {
+    var attempt = 0;
+    var max_attempts = 50;
+    var valid_position = false;
+    var spawn_x, spawn_y;
+    
+    // Try to find a valid spawn location
+    while (!valid_position && attempt < max_attempts) {
+        // Generate random position within the specified area
+        spawn_x = random_range(room_area.x1, room_area.x2);
+        spawn_y = random_range(room_area.y1, room_area.y2);
+        
+        // Check if this position is free in all relevant collision layers
+        valid_position = collision_system.grid_position_is_free(0, spawn_x, spawn_y) && 
+                        collision_system.grid_position_is_free(1, spawn_x, spawn_y) &&
+                        collision_system.grid_position_is_free(2, spawn_x, spawn_y);
+        
+        attempt++;
+    }
+    
+    // Spawn the item if a valid position was found
+    if (valid_position) {
+        instance_create_layer(spawn_x, spawn_y, "Items", item_type);
+        return true;
+    }
+    
+    return false; // Failed to find a valid position
+}
+```
+
+## Technical Implementation Notes
+
+1. **Multi-layer Collisions**: The system supports different collision layers for various types of obstacles or terrain, allowing entities to interact differently based on their capabilities.
+
+2. **Memory Management**: The `reset` function properly destroys old mp_grids before creating new ones, preventing memory leaks during room transitions or level reloads.
+
+3. **Cell-based Approach**: The grid uses a cell-based division of the room space, with customizable cell size for balancing precision and performance.
+
+4. **Room Size Adaptation**: The grid automatically adapts to the current room size, adding a small padding to ensure proper collision detection near room boundaries.
+
+5. **Performance Optimization**: By dividing collision detection into distinct layers, the system allows for more efficient checks tailored to specific entity types.
+
+6. **GameMaker Integration**: The class leverages GameMaker's built-in mp_grid functions for pathfinding and collision detection, ensuring good performance and compatibility.
+
+7. **Separate Axis Movement**: The `move_object` method implements separate axis movement checks, allowing entities to slide along obstacles rather than getting completely stuck.

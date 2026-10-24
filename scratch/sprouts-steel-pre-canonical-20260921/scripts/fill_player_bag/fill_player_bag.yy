@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"fill_player_bag",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"fill_player_bag",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Resources/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

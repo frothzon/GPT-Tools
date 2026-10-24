@@ -1,0 +1,298 @@
+# Text_Blaster Class Documentation
+
+## Overview
+
+The `Text_Blaster` class provides a system for creating and managing dynamic text particles with animations. These particles can be used for various game effects such as damage numbers, pickup notifications, status effects, or visual feedback. The system supports multiple animation parameters including movement, scaling, rotation, color transitions, and fading.
+
+```gml
+/// @brief Text Blaster class for managing dynamic, animated text particles.
+/// This class provides functionality for creating, updating, and drawing text particles with customizable animations.
+function Text_Blaster() constructor {
+    // Properties and methods defined...
+}
+```
+
+## Properties
+
+- **text_particles** (Array): Collection of all active text particle objects currently being managed by the system
+
+## Enumerations
+
+- **_textPartType**: Defines types of data that can be interpolated in animations
+- **pVEC**: Vector2 interpolation for position, speed, or acceleration
+- **pREAL**: Real number interpolation for alpha, scale, or angle
+- **pCOLOR**: Color interpolation for text color transitions
+
+## Particle Structure
+
+Each text particle contains the following data:
+
+- **str** (String): The text content to display
+- **x, y** (Real): The current position coordinates
+- **life_start** (Real): The initial lifetime of the particle in steps
+- **life** (Real): The remaining lifetime of the particle
+- **font** (Real): The font used for rendering (default: -1)
+- **params** (Struct): Animation parameters
+- **colors** (Array): Color values for interpolation
+- **alphas** (Array): Alpha values for fade effects
+- **delta_spd** (Array): Speed vectors for movement
+- **delta_acc** (Array): Acceleration vectors for movement
+- **scales** (Array): Scale values for size animation
+- **angles** (Array): Angle values for rotation
+- **values** (Struct): Current calculated values
+- **speed_default** (Vector2): Current speed vector
+- **accel_default** (Vector2): Current acceleration vector
+- **alpha** (Real): Current alpha value
+- **color** (Color): Current interpolated color
+- **scale** (Real): Current scale value
+- **angle** (Real): Current rotation angle
+
+## Methods
+
+### Core Methods
+
+#### add_text()
+
+Creates and adds a new text particle to the system with customizable parameters.
+
+```gml
+/// @brief Adds a new text particle to the system.
+/// @param {Class} _Vec2 The vector2 class pointer
+/// @param {String} _string The text content of the particle.
+/// @param {Real} _x The initial x-coordinate of the particle.
+/// @param {Real} _y The initial y-coordinate of the particle.
+/// @param {Real} _life The lifetime of the particle in steps. Default is `GAME_SPEED`.
+/// @param {Array} _colors Array of colors for the text animation. Default is `[c_white]`.
+/// @return {Real} The index of the newly added text particle.
+static add_text = function(_Vec2 = Vector2, _string = "test", _x = 16, _y = 16, _life = game_get_speed(gamespeed_fps), _colors = [c_white]) {
+    // Implementation...
+}
+```
+
+#### lerp_array()
+
+Interpolates between values in an array based on a ratio, supporting different data types.
+
+```gml
+/// @brief Interpolates values in an array based on a ratio.
+/// Supports real numbers, vectors, and colors for interpolation.
+/// @param {Array} array_data The array of values to interpolate.
+/// @param {Real} ratio The interpolation ratio (0 to 1).
+/// @param {Real} type The type of data to interpolate (`pREAL`, `pVEC`, or `pCOLOR`).
+/// @return {Any} The interpolated value based on the input type.
+static lerp_array = function(array_data, ratio, type = _textPartType.pREAL) {
+    // Implementation...
+}
+```
+
+#### update()
+
+Updates all text particles, applying animations and removing expired particles.
+
+```gml
+/// @brief Updates the text particles' positions and animations.
+/// Applies motion, fading, scaling, and other animations based on their parameters.
+static update = function() {
+    // Implementation...
+}
+```
+
+#### draw()
+
+Renders all active text particles with their current visual properties.
+
+```gml
+/// @brief Draws all active text particles.
+/// Applies transformations and animations, including scaling, rotation, and coloring.
+static draw = function() {
+    // Implementation...
+}
+```
+
+## Usage Examples
+
+### Creating a Text Blaster System
+
+```gml
+// Create a text blaster in a controller object
+function create() {
+    // Initialize the text blaster system
+    text_system = new Text_Blaster();
+}
+```
+
+### Displaying Damage Numbers
+
+```gml
+// Show floating damage numbers when an enemy is hit
+function enemy_take_damage(_amount, _is_critical) {
+    // Determine text color based on damage type
+    var colors = _is_critical ? [c_yellow, c_orange, c_red] : [c_white, c_red];
+    
+    // Create the damage number text
+    text_system.add_text(
+        Vector2,                   // Vector2 class
+        string(_amount),           // Text content (damage amount)
+        x,                         // X position (enemy x)
+        y - sprite_height/2,       // Y position (above enemy)
+        room_speed * 1.5,          // Duration (1.5 seconds)
+        colors                     // Color transition
+    );
+    
+    // Continue with damage processing
+    hp -= _amount;
+}
+```
+
+### Player Feedback for Pickups
+
+```gml
+// Show item pickup notifications
+function player_collect_item(_item_name, _item_value) {
+    // Create a pickup message with animation
+    var message = "+" + string(_item_value) + " " + _item_name;
+    var text_idx = text_system.add_text(
+        Vector2,
+        message,
+        x,
+        y - 32,
+        room_speed * 2
+    );
+    
+    // Customize the text particle parameters
+    var text_part = text_system.text_particles[text_idx];
+    
+    // Set animation parameters
+    text_part.params.delta_spd = [new Vector2(0, -1.5), new Vector2(0, -0.5)];
+    text_part.params.scales = [0.8, 1.2, 1];
+    text_part.params.colors = [c_lime, c_white];
+    text_part.params.alphas = [0, 1, 1, 0];
+    
+    // Set custom font
+    text_part.font = fnt_pickup;
+}
+```
+
+### Creating Status Effect Notifications
+
+```gml
+// Show status effect indicators
+function apply_status_effect(_effect_name, _effect_duration) {
+    // Create text for the status effect
+    var text_idx = text_system.add_text(
+        Vector2,
+        _effect_name,
+        x,
+        y - sprite_height,
+        room_speed * 1.5
+    );
+    
+    // Customize based on effect type
+    var text_part = text_system.text_particles[text_idx];
+    
+    // Different colors based on effect type
+    switch(_effect_name) {
+        case "POISONED":
+            text_part.params.colors = [c_lime, c_green];
+            break;
+        case "BURNING":
+            text_part.params.colors = [c_yellow, c_orange, c_red];
+            break;
+        case "FROZEN":
+            text_part.params.colors = [c_aqua, c_blue];
+            break;
+        default:
+            text_part.params.colors = [c_white];
+    }
+    
+    // Add spinning effect
+    text_part.params.angles = [0, 15, -15, 0];
+}
+```
+
+### Combat Feedback Messages
+
+```gml
+// Display combat feedback messages
+function show_combat_message(_message, _x, _y, _type) {
+    // Set parameters based on message type
+    var life_duration, colors, movement, scales;
+    
+    switch(_type) {
+        case "miss":
+            life_duration = room_speed * 1;
+            colors = [c_gray];
+            movement = [new Vector2(random_range(-0.5, 0.5), -1.5)];
+            scales = [0.8, 1, 0.8];
+            break;
+        case "block":
+            life_duration = room_speed * 1.5;
+            colors = [c_yellow, c_orange];
+            movement = [new Vector2(0, -1), new Vector2(0, -0.5)];
+            scales = [0.9, 1.2, 0.9];
+            break;
+        case "critical":
+            life_duration = room_speed * 2;
+            colors = [c_yellow, c_red];
+            movement = [new Vector2(0, -2), new Vector2(0, -0.5)];
+            scales = [1, 1.5, 1.2];
+            break;
+        default:
+            life_duration = room_speed * 1.2;
+            colors = [c_white];
+            movement = [new Vector2(0, -1.2)];
+            scales = [1, 1.1, 0.9];
+    }
+    
+    // Create the message
+    var text_idx = text_system.add_text(
+        Vector2,
+        _message,
+        _x,
+        _y,
+        life_duration,
+        colors
+    );
+    
+    // Customize animation
+    var text_part = text_system.text_particles[text_idx];
+    text_part.params.delta_spd = movement;
+    text_part.params.scales = scales;
+}
+```
+
+### Updating and Drawing the System
+
+```gml
+// In the Step Event of a controller object
+function step() {
+    // Update all text particles
+    text_system.update();
+}
+
+// In the Draw GUI Event of a controller object
+function draw_gui() {
+    // Draw all text particles
+    text_system.draw();
+}
+```
+
+## Technical Implementation Details
+
+1. **Animation Interpolation**: The system uses array-based interpolation for all animated properties, allowing for complex multi-stage animations.
+
+2. **Type-Specific Interpolation**: Different interpolation methods are used depending on the data type (real numbers, vectors, or colors).
+
+3. **Lifetime Management**: Particles automatically expire and are removed after their lifetime elapses, preventing memory issues.
+
+4. **Acceleration Physics**: Text particles support acceleration for more dynamic movement patterns such as gravity, bouncing, or curved paths.
+
+5. **Draw Transformations**: The system applies multiple transformations when drawing, including scaling, rotation, coloring, and alpha transparency.
+
+6. **Customization**: Each text particle's animation parameters can be individually customized after creation for specific effects.
+
+7. **Performance Optimization**: The update and draw methods iterate backward through the array when removing elements to prevent index issues.
+
+8. **Automatic Drawing State Management**: The system automatically resets drawing properties (alignment, alpha, color, font) after rendering to prevent side effects.
+
+9. **Vector-Based Movement**: Movement is handled through vector mathematics, allowing for precise control over direction and velocity.

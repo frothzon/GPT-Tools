@@ -1,0 +1,125 @@
+{
+  "status": "passed",
+  "verificationLevel": "gameplay-assertions",
+  "records": [
+    {
+      "saveId": "C:\\Users\\johns\\AppData\\Local\\gmtool_test_c7a12365b00f406da038481468ec0c04\\",
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "type": "environment"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "inventory_upper_clamp",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "inventory_preserves_other_item",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "inventory_lower_clamp",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "craft_failure_preserves_inventory",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "craft_success_charges_exact_inputs",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "craft_timer_waits",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "craft_completion_emits_output_record",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "building_affordability_rejects_insufficient_inventory",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "test": "building_affordability_accepts_sufficient_inventory",
+      "passed": true,
+      "type": "assertion"
+    },
+    {
+      "runId": "c7a12365b00f406da038481468ec0c04",
+      "count": 9.0,
+      "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+      "type": "complete"
+    }
+  ],
+  "problems": [],
+  "assertionCount": 9,
+  "runId": "c7a12365b00f406da038481468ec0c04",
+  "planId": "11dfc0e98ee662662451097348afa0e013ef7bf0579b334ff15a946c6f8922bd",
+  "candidateDigest": "413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8",
+  "harnessDigest": "32224c70ad514162f779f9659aab25bd229b1476742486a6997bb821b174e28d",
+  "suiteDigest": "478e411009421735f5e9dd3d5b76a03ef633392d6ade3e7cf8e17ea514d09674",
+  "profile": {
+    "target": "windows",
+    "runtime": "vm",
+    "toolchain": "GMS2@2024.14.4",
+    "config": "Default",
+    "timeout": 180,
+    "docsChannel": "project",
+    "language": "en"
+  },
+  "process": {
+    "command": [
+      "C:\\Users\\johns\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+      "C:\\Agent Tools\\game-maker\\node_modules\\@gamemaker\\gm-cli\\dist\\cli.js",
+      "run",
+      "C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp",
+      "--target=windows",
+      "--runtime=vm",
+      "--toolchain=GMS2@2024.14.4",
+      "--config=Default",
+      "--cache-dir=C:\\Agent Tools\\game-maker\\.gm-cli-cache",
+      "--verbose"
+    ],
+    "exitCode": 0,
+    "stdout": "=== Downloading tools ===\nFound project-tool\nFound gmpm\nFound package-tool\nTools downloaded\n=== Downloading Igor ===\nIgor downloaded\n=== Fetching license ===\nLicense fetched\n=== Restoring prefabs ===\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe PREFABS RESTORE SOURCE=C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp PACKAGETOOL=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\package-tool\\node_modules\\@gm-tools\\package-tool-win-x64\\PackageTool.exe GMPM_DLL=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\gmpm\\node_modules\\@gm-tools\\gmpm-win-x64\\gmpm.dll PACKAGETOOLVERBOSE=TRUE PREFABSFOLDER=C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\nProjectTool - Version 2026.0.176\n--------------------------------\nChecking 'VERSIONED' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp' - True/True : 20\nChecking 'VERS0' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp' - True/False : 20\nChecking 'MVC' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp' - False/False : 20\nChecking 'GMX' can load/import 'C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp' - False/False : 20\nSetting up CoreResources for VERSIONED\nRESOURCETYPESPATH file path missing. Conversion will target the resource versions corresponding to this release of ProjectTool.\nChanging the class revisions of a VERSIONED file\nClass count: 140\nSource: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp\nDestination: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp\nProject requested to be read only, 1 files would have been changed of 321\nLoading...\nCore Resources : Info - +++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 217.4157ms\nSuccess\nNo Missing Prefabs!\nProjectTool Successful\nPrefabs restored\n=== Installing runtime ===\nRuntime found\n=== Compiling & running for windows ===\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\igor\\windows\\x64\\Igor.exe -rp C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268 -cache C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM -project C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp -runtime VM -of C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\gmtool_test_c7a12365b00f406da038481468ec0c04.win -lf C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist -prefabs C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs -v -projectool C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe -ac /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== -jsonErrors -config Default -- windows Run\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\bin\\platform_setting_defaults.json\nOptions: C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\local_settings.json\nFailed to load Options from C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\local_settings.json\nSetting up the Asset compiler\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=12 /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== /gn=\"gmtool_test_c7a12365b00f406da038481468ec0c04\" /td=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /cd=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /rtp=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\" /zpuf=\"C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\" /prefabs=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\" /projecttool=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe\"   /m=windows /tgt=64 /nodnd /cfg=\"Default\" /o=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\" /sh=True /optionsini=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\options.ini\"  /cvm /baseproject=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\BaseProject\\BaseProject.yyp\" \"C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp\" /preprocess=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /lf=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist\"\nFound Project Format 2\n+++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 292.2262ms\nSuccess\nfinished merging assets from C:/Agent Tools/game-maker/.gm-cli-cache/prefabs/io.gamemaker.sdfshaders-1.0.0/io.gamemaker.sdfshaders-1.0.0.yyp.\nfinished merging assets from C:/Agent Tools/game-maker/.gmtool-work/scenarios/c7a12365b00f406da038481468ec0c04/project/gmtool_test_c7a12365b00f406da038481468ec0c04.yyp.\nRelease build\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\ExtensionOptions.json\nOptionsIni\nOptions: C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\PlatformOptions.json\n[Compile] Run asset compiler\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=12 /ffe=fX58c3ppf3h/fW9uaWt9fW9+fQ== /gn=\"gmtool_test_c7a12365b00f406da038481468ec0c04\" /td=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /cd=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\" /rtp=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\" /zpuf=\"C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\" /prefabs=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\prefabs\" /projecttool=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\project-tool\\node_modules\\@gm-tools\\project-tool-win-x64\\ProjectTool.exe\"   /m=windows /tgt=64 /nodnd /cfg=\"Default\" /o=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\" /sh=True /optionsini=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\options.ini\"  /cvm /baseproject=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\BaseProject\\BaseProject.yyp\" \"C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\project\\gmtool_test_c7a12365b00f406da038481468ec0c04.yyp\" /debug /bt=run /rt=vm /arch=32 /lf=\"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\license\\licence.plist\"\nLooking for built-in fallback image in C:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\bin\\BuiltinImages\nCompile Constants...\nfinished.\nRemove DnD...\nfinished.\nCompile Scripts...\nfinished.\nCompile Rooms...\nfinished..... 0 CC empty\nfinished..... 0 CC empty\nCompile Objects...\nfinished.... 0 empty events\nCompile Timelines...finished.\nCompile Triggers...finished.\nCompile Extensions...Compile UI Layers...finished.\nGlobal scripts...\nfinished.\ncollapsing enums.\nFinal Compile...\nFinal Compile finished.\nSaving IFF file... C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\gmtool_test_c7a12365b00f406da038481468ec0c04.win\nWriting Chunk... GEN8 size ... -0.00 MB\noption_game_speed=60\nWriting Chunk... OPTN size ... 0.00 MB\nWriting Chunk... LANG size ... 0.00 MB\nWriting Chunk... EXTN size ... 0.00 MB\nWriting Chunk... SOND size ... 0.00 MB\nConverting snd_lvl_up_3 to Wav 16bit mono @ 44100Hz\nConverting snd_climb to Wav 16bit mono @ 44100Hz\nConverting snd_lvl_up_2 to Wav 16bit mono @ 44100Hz\nConverting snd_button_yes to Wav 16bit mono @ 44100Hz\nConverting mus_silent_woods to Wav 16bit mono @ 44100Hz\nConverting snd_lvl_up_1 to Wav 16bit mono @ 44100Hz\nConverting snd_splash to Wav 16bit mono @ 44100Hz\nConverting snd_smack_rock to Wav 16bit mono @ 44100Hz\nConverting snd_swim to Wav 16bit mono @ 44100Hz\nConverting snd_smack_metal to Wav 16bit mono @ 44100Hz\nConverting snd_smack_wood2 to Wav 16bit mono @ 44100Hz\nConverting snd_smack_rock2 to Wav 16bit mono @ 44100Hz\nConverting snd_smack_wood to Wav 16bit mono @ 44100Hz\nConverting snd_pickup to Wav 16bit mono @ 44100Hz\nWriting Chunk... AGRP size ... 0.00 MB\nWriting Chunk... SPRT size ... 0.00 MB\nWriting Chunk... BGND size ... 0.01 MB\nWriting Chunk... PATH size ... 0.00 MB\nWriting Chunk... SCPT size ... 0.00 MB\nWriting Chunk... GLOB size ... 0.01 MB\nWriting Chunk... SHDR size ... 0.00 MB\nWriting Chunk... FONT size ... 0.06 MB\nWriting Chunk... TMLN size ... 0.00 MB\nWriting Chunk... OBJT size ... 0.00 MB\nWriting Chunk... FEDS size ... 0.01 MB\nWriting Chunk... ACRV size ... 0.00 MB\nWriting Chunk... SEQN size ... 0.00 MB\nWriting Chunk... TAGS size ... 0.00 MB\nWriting Chunk... ROOM size ... 0.00 MB\nWriting Chunk... UILR size ... 0.01 MB\nWriting Chunk... DAFL size ... 0.00 MB\nWriting Chunk... EMBI size ... 0.00 MB\nWriting Chunk... PSEM size ... 0.00 MB\nWriting Chunk... PSYS size ... 0.00 MB\nWriting Chunk... TPAGE size ... 0.00 MB\nTexture Group - Default\nTexture Group - __YY__0fallbacktexture.png_YYG_AUTO_GEN_TEX_GROUP_NAME_\nWriting Chunk... TGIN size ... 0.00 MB\nWriting Chunk... CODE size ... 0.00 MB\nWriting Chunk... VARI size ... 1.52 MB\nWriting Chunk... FUNC size ... 0.06 MB\nWriting Chunk... FEAT size ... 0.01 MB\nWriting Chunk... STRG size ... 0.00 MB\nWriting Chunk... TXTR size ... 0.22 MB\n0 Compressing texture... \nwriting texture __yy__0fallbacktexture.png_yyg_auto_gen_tex_group_name__0.yytex... \n1 Compressing texture... writing texture default_0.yytex... \n2 Compressing texture... writing texture default_1.yytex... \n3 Compressing texture... writing texture default_2.yytex... \n4 Compressing texture... writing texture default_3.yytex... \n5 Compressing texture... writing texture default_4.yytex... \n6 Compressing texture... writing texture default_5.yytex... \n7 Compressing texture... writing texture default_6.yytex... \n8 Compressing texture... writing texture default_7.yytex... \n9 Compressing texture... writing texture default_8.yytex... \n10 Compressing texture... writing texture default_9.yytex... \n11 Compressing texture... \nwriting texture default_10.yytex... \n12 Compressing texture... writing texture default_11.yytex... \n13 Compressing texture... writing texture default_12.yytex... \n14 Compressing texture... writing texture default_13.yytex... \n15 Compressing texture... writing texture default_14.yytex... \n16 Compressing texture... writing texture default_15.yytex... \n17 Compressing texture... writing texture default_16.yytex... \n18 Compressing texture... writing texture default_17.yytex... \n19 Compressing texture... writing texture default_18.yytex... \n20 Compressing texture... writing texture default_19.yytex... \nWriting Chunk... AUDO size ... 1.09 MB\nWriting Chunk... SCPT size ... -0.00 MB\nWriting Chunk... DBGI size ... 0.01 MB\nWriting Chunk... INST size ... 0.71 MB\nWriting Chunk... LOCL size ... 0.00 MB\nWriting Chunk... DFNC size ... 0.02 MB\nWriting Chunk... STRG size ... 0.03 MB\nStats : GMA : Elapsed=3119.6242\nStats : GMA : sp=101,au=20,bk=2,pt=0,sc=938,sh=8,fo=2,tl=0,ob=38,ro=3,da=1,ex=0,ma=6,fm=0xC040B29D7FFE2EA4\nIgor complete.\n[Run] Run game\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\Windows\\x64\\Runner.exe  -game \"C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\gmtool_test_c7a12365b00f406da038481468ec0c04.win\"\n\n***************************************\n *     GameMaker v2024.14.4.268    *\n***************************************\nSetting scheduler resolution to 1\nAttempting to use high process priority settings\nSet process priority to HIGH_PRIORITY_CLASS\nSet main thread priority to HIGHEST\nRegistered with MMCSS 'Games' task\nSet MMCSS thread priority to CRITICAL\nReading File C:\\Agent Tools\\game-maker\\.gm-cli-cache\\build-gms2-windows-VM\\output\\gmtool_test_c7a12365b00f406da038481468ec0c04.win took 5 ms\nDirectX11: Using hardware device\nCollision Event time(microsecs)=12\nVariable_Global_Init()\nPrepareGame()\nAudio_Init()\nAudio group 0 -> Loaded\nAttempting to set gamepadcount to 12\nGame_Prepare()\nScript_Prepare() \nTimeLine_Prepare() \nObject_Prepare() \nRoom_Prepare() \nFinished PrepareGame() \nRun_Start\nDone g_EffectsManager.Init()\nDone RenderStateManager\nCreateColPairs took 0.000000s 6 usecs for 39 object types obj_col_numb=0 physobjcount=3 resizes 0 final size 9\nDone ObjectLists\nDone Extension_Initialize\nAbout to startroom\nGMTOOL_SCENARIO:{\"saveId\":\"C:\\\\Users\\\\johns\\\\AppData\\\\Local\\\\gmtool_test_c7a12365b00f406da038481468ec0c04\\\\\",\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"type\":\"environment\"}\nTotal memory used = 51851056 (0x03172f30) bytes 49.45MB\nFree memory = 5539600 (0x00548710) bytes 5.28MB\nPeak memory used = 51851056 (0x03172f30) bytes 49.45MB\n**********************************.\nEntering main loop.\n**********************************.\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"inventory_upper_clamp\",\"passed\":true,\"type\":\"assertion\"}\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"inventory_preserves_other_item\",\"passed\":true,\"type\":\"assertion\"}\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"inventory_lower_clamp\",\"passed\":true,\"type\":\"assertion\"}\nCannot start crafting: Insufficient ingredients for the first item.\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"craft_failure_preserves_inventory\",\"passed\":true,\"type\":\"assertion\"}\nStarting craft: Test recipe, Recipe Craft Time: 2, Station Time Multiplier: 1\nTimer set to: 2\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"craft_success_charges_exact_inputs\",\"passed\":true,\"type\":\"assertion\"}\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"craft_timer_waits\",\"passed\":true,\"type\":\"assertion\"}\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"craft_completion_emits_output_record\",\"passed\":true,\"type\":\"assertion\"}\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"building_affordability_rejects_insufficient_inventory\",\"passed\":true,\"type\":\"assertion\"}\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"test\":\"building_affordability_accepts_sufficient_inventory\",\"passed\":true,\"type\":\"assertion\"}\nGMTOOL_SCENARIO:{\"runId\":\"c7a12365b00f406da038481468ec0c04\",\"count\":9.0,\"candidateDigest\":\"413f4c30dc070595aa2b5cdc2f1c25624376bc68de90003dbbd7f83f8b8a3df8\",\"type\":\"complete\"}\n###game_end###0\nAttempting to set gamepadcount to 0\nScript_Free called with 938 and global 139\nUnsetting previous scheduler resolution of 1\nC:\\Agent Tools\\game-maker\\.gm-cli-cache\\runtimes-gms2\\runtime-2024.14.4.268\\Windows\\x64\\Runner.exe DONE (0)\nIgor complete.\nGame exited\n",
+    "stderr": "Latest available version is 2.4.1 (currently running 2.3.0), upgrade with \"npm install -g @gamemaker/gm-cli\"\n",
+    "durationSeconds": 6.281,
+    "timedOut": false
+  },
+  "artifacts": "C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\artifacts",
+  "completedAt": "2026-10-03T19:13:19.866162+00:00",
+  "screenshots": [],
+  "visualReview": "not-requested",
+  "saveIsolation": {
+    "cloneName": "gmtool_test_c7a12365b00f406da038481468ec0c04",
+    "explicitPathRoot": "C:\\Agent Tools\\game-maker\\.gmtool-work\\scenarios\\c7a12365b00f406da038481468ec0c04\\artifacts",
+    "arbitraryCodeSandbox": false
+  }
+}

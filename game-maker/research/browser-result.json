@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "errors": [],
+  "checks": [
+    "resource filter",
+    "callable context",
+    "offline exact manual lookup"
+  ]
+}

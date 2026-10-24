@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"create_potion_crafter",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"create_potion_crafter",
+  "parent":{
+    "name":"Crafting",
+    "path":"folders/Resources/Scripts/Crafting.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
