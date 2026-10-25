@@ -13,9 +13,13 @@ gmtool = "gmtool.cli:main"
 
 [project.optional-dependencies]
 preview = ["Pillow>=10"]
+animation = ["Pillow>=10", "numpy>=1.24"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"gmtool.animation_harness" = ["static/*", "templates/*"]

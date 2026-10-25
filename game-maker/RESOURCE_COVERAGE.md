@@ -21,6 +21,10 @@ A resource family is fully supported only when all applicable operations below p
 
 Parse-only, raw-JSON editing, or successful compilation alone is not full support.
 
+## Cutout animation harness (separate artifact workflow)
+
+The animation editor is a separate content-authoring workflow rather than a claim of full generic GameMaker sprite, sequence, or room coverage. Current evidence: versioned `.gmanim` save/load and hash validation; supported SCML migration; PNG/GIF rendering; rounded attachment slicing; per-key transforms, interpolation, pivots, image selection, events, bones, parts and character maps; and ProjectTool-backed `.yymps` export. The zombie package contains 15 entities, 60 clips, 187 referenced sprite resources, the consolidated runtime, guide, and a demo object/room. The package-only project passed strict structural validation and GameMaker VM compilation. This does not yet establish GameMaker IDE import round-trip, runtime gameplay assertions, exact Spriter-render pixel parity, or support for meshes, nested entities, sound, and crossfades. See [ANIMATION_HARNESS.md](ANIMATION_HARNESS.md).
+
 ## Uniform agent interface
 
 All adapters expose the same command vocabulary, with resource-specific options discoverable through `schema` and `--explain`:
@@ -115,6 +119,8 @@ Audio transformations record source hash, codec, sample rate, channels, loudness
 Room previews must support layer visibility toggles, camera/view selection, coordinate readout, dependency navigation, and deterministic thumbnails. When static rendering cannot match GameMaker, a purpose-built runtime capture fixture is required and labeled as such.
 
 ## Temporal and procedural content
+
+The standalone `gmtool animation` authoring harness stores cutout rigs in versioned `.gmanim` archives and does not make a GameMaker resource family claim. Its editor and PNG/GIF paths have independent acceptance checks. YYMPS package export remains pending until all generated sprites, the runtime script, and demo resources pass the official ProjectTool round trip.
 
 | Family | Build/edit coverage | Required view | Critical validation |
 | --- | --- | --- | --- |

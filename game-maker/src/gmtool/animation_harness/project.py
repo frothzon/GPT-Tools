@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import copy
 import hashlib
 import io
 import json
@@ -38,7 +39,7 @@ def slug(value: str) -> str:
 
 def new_project(name: str = "Untitled Animation") -> tuple[dict, dict[str, bytes]]:
     return ({"format": FORMAT, "version": VERSION, "id": uid(), "name": name,
-             "settings": {"canvas": [240, 200], "frame_count": 16, "default_duration_ms": 1000},
+             "settings": {"canvas": [240, 200], "frame_count": 16, "default_duration_ms": 1000,"preview_maps":{}},
              "collections": [{"id": uid(), "key": "characters", "entities": []}]}, {})
 
 
@@ -60,40 +61,94 @@ def validate_project(project: dict, assets: dict[str, bytes]) -> None:
     collections = project.get("collections", [])
     if not isinstance(collections, list):
         raise AnimationError("Project collections must be a list.")
-    entity_ids, entity_names = set(), set()
+    collection_keys=set();entity_ids, entity_names = set(), set();known_entity_ids=set()
     for collection in collections:
+        key=collection.get("key")
+        if not isinstance(key,str) or not key.strip():raise AnimationError("Every collection needs a non-empty key.")
+        if key.casefold() in collection_keys:raise AnimationError(f"Duplicate collection key: {key}")
+        collection_keys.add(key.casefold())
         for entity in collection.get("entities", []):
             ident = entity.get("id")
             if not ident or ident in entity_ids:
                 raise AnimationError("Character IDs must be present and unique.")
             entity_ids.add(ident)
+            known_entity_ids.add(str(ident))
+            if not isinstance(entity.get("name"),str) or not entity["name"].strip():raise AnimationError("Every character needs a name.")
             name_key = (collection.get("id"), entity.get("name"))
             if name_key in entity_names:
                 raise AnimationError(f"Duplicate character name: {entity.get('name')}")
             entity_names.add(name_key)
-            part_names = set(entity.get("parts", []))
-            bone_names = set(entity.get("bones", []))
-            file_ids = {f.get("asset_id") for f in entity.get("files", [])}
+            parts=entity.get("parts",[]);bones=entity.get("bones",[]);files=entity.get("files",[]);clips=entity.get("animations",[])
+            if not isinstance(parts,list) or not isinstance(bones,list) or not isinstance(files,list) or not isinstance(clips,list):
+                raise AnimationError(f"Malformed rig tables in {entity.get('name')}.")
+            if len(parts)!=len(set(parts)) or any(not isinstance(x,str) or not x for x in parts):raise AnimationError(f"Sprite part names must be non-empty and unique in {entity['name']}.")
+            if len(bones)!=len(set(bones)) or any(not isinstance(x,str) or not x for x in bones):raise AnimationError(f"Bone names must be non-empty and unique in {entity['name']}.")
+            if len(entity.get("bone_lengths",[])) not in (0,len(bones)):raise AnimationError(f"Bone lengths do not match the bone list in {entity['name']}.")
+            part_names=set(parts);bone_names=set(bones)
             for f in entity.get("files", []):
-                if f.get("asset_id") not in assets:
+                asset_id=f.get("asset_id")
+                if not isinstance(asset_id,str) or not re.fullmatch(r"[a-f0-9]{64}",asset_id) or asset_id not in assets:
                     raise AnimationError(f"Missing artwork for {entity.get('name')}: {f.get('path')}")
-                if f.get("width", 0) < 1 or f.get("height", 0) < 1:
+                if not isinstance(f.get("width"),int) or not isinstance(f.get("height"),int) or f.get("width", 0) < 1 or f.get("height", 0) < 1:
                     raise AnimationError(f"Invalid dimensions for {f.get('path')}")
+                if not isinstance(f.get("path"),str) or not f["path"]:raise AnimationError("Every image attachment needs a source path/name.")
+                for pivot in (f.get("pivot_x",0),f.get("pivot_y",1)):
+                    if not isinstance(pivot,(int,float)) or not math.isfinite(pivot):raise AnimationError(f"Invalid image pivot for {f.get('path')}.")
+            clip_names=set()
             for clip in entity.get("animations", []):
                 if int(clip.get("duration", 0)) <= 0:
                     raise AnimationError(f"Animation {clip.get('name')} must have a positive duration.")
-                for timeline in clip.get("timelines", []):
-                    if len(timeline.get("keys", [])) % STRIDE:
+                if not isinstance(clip.get("name"),str) or not clip["name"] or clip["name"].casefold() in clip_names:raise AnimationError(f"Animation names must be non-empty and unique in {entity['name']}.")
+                clip_names.add(clip["name"].casefold())
+                timelines=clip.get("timelines",[]);mainline=clip.get("mainline",[])
+                if not isinstance(timelines,list) or not isinstance(mainline,list) or not mainline:raise AnimationError(f"Animation {clip.get('name')} needs timelines and a mainline.")
+                for timeline in timelines:
+                    kind=timeline.get("object_type")
+                    if kind not in {"bone","sprite"}:raise AnimationError(f"Unsupported timeline type in {clip['name']}: {kind}")
+                    target=bones if kind=="bone" else parts
+                    if timeline.get("name") not in target:raise AnimationError(f"Timeline {timeline.get('name')} is not a known {kind} in {clip['name']}.")
+                    flat=timeline.get("keys",[]);ids=timeline.get("key_ids",[])
+                    if not flat or len(flat) % STRIDE:
                         raise AnimationError(f"Malformed timeline {timeline.get('name')} in {clip.get('name')}.")
-                for state in clip.get("mainline", []):
-                    for part in state.get("objects", []):
-                        if not 0 <= part[0] < len(part_names):
-                            raise AnimationError(f"Broken part reference in {clip.get('name')}.")
-                    for bone in state.get("bones", []):
-                        if not 0 <= bone[0] < len(bone_names):
-                            raise AnimationError(f"Broken bone reference in {clip.get('name')}.")
-
-
+                    rows=[flat[i:i+STRIDE] for i in range(0,len(flat),STRIDE)]
+                    if timeline.get("key_count")!=len(rows) or len(ids)!=len(rows):raise AnimationError(f"Timeline key metadata is inconsistent in {clip['name']}/{timeline.get('name')}.")
+                    times=[row[0] for row in rows]
+                    if any(not isinstance(t,(int,float)) or not math.isfinite(t) or t<0 or t>int(clip["duration"]) for t in times) or times!=sorted(times) or len(set(times))!=len(times):
+                        raise AnimationError(f"Timeline key times must be unique, ordered, and within {clip['name']} duration.")
+                    for row in rows:
+                        if any(not isinstance(value,(int,float)) or not math.isfinite(value) for value in row):raise AnimationError(f"Non-finite timeline value in {clip['name']}/{timeline.get('name')}.")
+                        if int(row[11]) not in range(7):raise AnimationError(f"Unsupported interpolation curve in {clip['name']}/{timeline.get('name')}.")
+                        if int(row[10]) not in (-1,0,1):raise AnimationError(f"Unsupported rotation spin in {clip['name']}/{timeline.get('name')}.")
+                        file_index=int(row[9])
+                        if kind=="sprite" and file_index!=-1 and not 0<=file_index<len(files):raise AnimationError(f"Invalid image index in {clip['name']}/{timeline.get('name')}.")
+                for state in mainline:
+                    bone_refs=state.get("bones",[]);object_refs=state.get("objects",[])
+                    if not isinstance(bone_refs,list) or not isinstance(object_refs,list):raise AnimationError(f"Malformed mainline in {clip['name']}.")
+                    for index,bone in enumerate(bone_refs):
+                        if len(bone)<4 or not 0<=int(bone[0])<len(bones) or not 0<=int(bone[1])<len(timelines):raise AnimationError(f"Broken bone reference in {clip['name']}.")
+                        timeline=timelines[int(bone[1])]
+                        if timeline.get("object_type")!="bone" or timeline.get("name")!=bones[int(bone[0])]:raise AnimationError(f"Bone reference points to the wrong timeline in {clip['name']}.")
+                        if not 0<=int(bone[2])<timeline["key_count"] or int(bone[3])<-1 or int(bone[3])>=index:raise AnimationError(f"Broken bone key/parent reference in {clip['name']}.")
+                    for item in object_refs:
+                        if len(item)<5 or not 0<=int(item[0])<len(parts) or not 0<=int(item[1])<len(timelines):raise AnimationError(f"Broken part reference in {clip['name']}.")
+                        timeline=timelines[int(item[1])]
+                        if timeline.get("object_type")!="sprite" or timeline.get("name")!=parts[int(item[0])]:raise AnimationError(f"Part reference points to the wrong timeline in {clip['name']}.")
+                        if not 0<=int(item[2])<timeline["key_count"] or int(item[3])<-1 or int(item[3])>=len(bone_refs):raise AnimationError(f"Broken part key/parent reference in {clip['name']}.")
+                for event in clip.get("events",[]):
+                    if not isinstance(event.get("name"),str) or not event["name"] or not 0<=int(event.get("time",-1))<=int(clip["duration"]):raise AnimationError(f"Invalid event in {clip['name']}.")
+            cmap_names=set()
+            for cmap in entity.get("character_maps",[]):
+                if not cmap.get("name") or cmap["name"] in cmap_names:raise AnimationError(f"Character map names must be unique in {entity['name']}.")
+                cmap_names.add(cmap["name"]);seen_sources=set()
+                for mapping in cmap.get("maps",[]):
+                    source=int(mapping.get("source",-1));target=int(mapping.get("target",-1))
+                    if not 0<=source<len(files) or target!=-1 and not 0<=target<len(files) or source in seen_sources:raise AnimationError(f"Invalid character-map entry in {entity['name']}/{cmap['name']}.")
+                    seen_sources.add(source)
+    for entity_id,names in project.get("settings",{}).get("preview_maps",{}).items():
+        if str(entity_id) not in known_entity_ids:raise AnimationError(f"Preview map state references unknown entity {entity_id}.")
+        entity=next(e for c in collections for e in c.get("entities",[]) if str(e.get("id"))==str(entity_id))
+        known={m.get("name") for m in entity.get("character_maps",[])}
+        if any(name not in known for name in names):raise AnimationError(f"Preview map state references an unknown map on {entity.get('name')}.")
 def save_project(path: str | Path, project: dict, assets: dict[str, bytes]) -> Path:
     """Atomically save a portable project ZIP with embedded PNG assets."""
     validate_project(project, assets)
@@ -247,9 +302,14 @@ def render_frame(project: dict, entity: dict, clip: dict, assets: dict[str, byte
         parent = bone_world[parent_ref] if 0 <= parent_ref < len(bone_world) else None
         bone_world.append(_compose(parent, row[1:7]))
 
-    # Keep the image legible at default canvas sizes while respecting authored pixel coordinates.
-    max_dim = max([f.get("width", 1) for f in entity.get("files", [])] + [100])
-    scale = min(1.0, canvas_w/(max_dim*1.5), canvas_h/(max_dim*1.35))
+    # Keep a fixed entity camera across clips. Composite rigs need room for the sum of their cutout pieces;
+    # a one-image character can fit directly from that image's own bounds.
+    files=entity.get("files",[])
+    max_w=max([f.get("width",1) for f in files]+[100]);max_h=max([f.get("height",1) for f in files]+[100])
+    if len(files)<=1:scale=min(1.0,canvas_w*.86/max_w,canvas_h*.84/max_h)
+    else:
+        max_dim=max(max_w,max_h)
+        scale=min(1.0,canvas_w/(max_dim*2.3),canvas_h/(max_dim*2.3))
     output = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
     records = sorted(pose_key.get("objects", []), key=lambda item: item[4])
     for part_index, timeline_index, _, parent_ref, z_index in records:
@@ -259,7 +319,18 @@ def render_frame(project: dict, entity: dict, clip: dict, assets: dict[str, byte
         file_index = int(row[9])
         if not 0 <= file_index < len(entity.get("files", [])):
             continue
-        file_info = entity["files"][file_index]
+        active_maps=project.get("settings",{}).get("preview_maps",{}).get(entity.get("id"),[])
+        mapped_index=file_index
+        hidden=False
+        for map_name in active_maps:
+            character_map=next((m for m in entity.get("character_maps",[]) if m.get("name")==map_name),None)
+            if not character_map:continue
+            entry=next((m for m in character_map.get("maps",[]) if m.get("source")==mapped_index),None)
+            if entry:
+                mapped_index=int(entry.get("target",-1))
+                if mapped_index<0:hidden=True;break
+        if hidden or not 0<=mapped_index<len(entity.get("files",[])):continue
+        file_info = entity["files"][mapped_index]
         asset = assets.get(file_info.get("asset_id", ""))
         if asset is None:
             continue
@@ -277,7 +348,7 @@ def render_frame(project: dict, entity: dict, clip: dict, assets: dict[str, byte
         c = scale*math.sin(radians)*sy
         d = -scale*math.cos(radians)*sy
         tx = canvas_w*0.5 + scale*world[0] - a*pivot_x - c*pivot_y
-        ty = canvas_h*0.78 - scale*world[1] - b*pivot_x - d*pivot_y
+        ty = canvas_h*0.5 - scale*world[1] - b*pivot_x - d*pivot_y
         determinant = a*d-b*c
         if abs(determinant) < 1e-9:
             continue
@@ -530,12 +601,140 @@ def add_key(entity: dict, animation_name: str, timeline_index: int, time_ms: int
 
 
 def set_key_value(entity: dict, animation_name: str, timeline_index: int, key_index: int, field: str, value: float) -> None:
-    fields={"x":1,"y":2,"angle":3,"scale_x":4,"scale_y":5,"alpha":6,"pivot_x":7,"pivot_y":8}
+    fields={"time_ms":0,"x":1,"y":2,"angle":3,"scale_x":4,"scale_y":5,"alpha":6,"pivot_x":7,"pivot_y":8,"file_index":9,"spin":10,"curve":11,"c1":12,"c2":13,"c3":14,"c4":15,"c5":16,"c6":17}
     if field not in fields: raise AnimationError(f"Unsupported key field: {field}")
     clip=next(a for a in entity["animations"] if a["name"]==animation_name)
     timeline=clip["timelines"][timeline_index];offset=key_index*STRIDE
     if offset<0 or offset+STRIDE>len(timeline["keys"]):raise AnimationError("Select a valid keyframe.")
-    timeline["keys"][offset+fields[field]]=float(value)
+    if field=="time_ms":
+        rows=[timeline["keys"][i:i+STRIDE] for i in range(0,len(timeline["keys"]),STRIDE)]
+        ids=list(timeline["key_ids"]);pairs=list(zip(rows,ids));pairs[key_index][0][0]=max(0,min(int(round(value)),int(clip["duration"])))
+        pairs.sort(key=lambda pair:pair[0][0]);timeline["keys"]=[v for row,_ in pairs for v in row];timeline["key_ids"]=[ident for _,ident in pairs]
+        remap={old_index:next(i for i,(_,ident) in enumerate(pairs) if ident==ids[old_index]) for old_index in range(len(ids))}
+        for state in clip.get("mainline",[]):
+            for ref in state.get("bones",[]):
+                if ref[1]==timeline_index:ref[2]=remap.get(ref[2],ref[2])
+            for ref in state.get("objects",[]):
+                if ref[1]==timeline_index:ref[2]=remap.get(ref[2],ref[2])
+        return
+    timeline["keys"][offset+fields[field]]=int(value) if field in {"curve","spin","file_index","time_ms"} else float(value)
+
+
+def add_bone(project: dict, entity: dict, name: str, parent_name: str, length: float = 18) -> dict:
+    """Append a child bone with neutral local keys to every animation."""
+    name=name.strip()
+    if not name:raise AnimationError("Enter a bone name.")
+    if name in entity.get("bones",[]):raise AnimationError(f"A bone named {name!r} already exists.")
+    if parent_name not in entity.get("bones",[]):raise AnimationError(f"Unknown parent bone: {parent_name}")
+    if length<=0:raise AnimationError("Bone length must be positive.")
+    if not entity.get("animations"):raise AnimationError("Add an animation before creating a bone.")
+    bone_index=len(entity["bones"]);parent_index=entity["bones"].index(parent_name)
+    entity["bones"].append(name);entity.setdefault("bone_lengths",[]).append(float(length))
+    for clip in entity["animations"]:
+        source=next((t for t in clip["timelines"] if t.get("object_type")=="bone" and t.get("name")==parent_name),None)
+        times=[int(source["keys"][i]) for i in range(0,len(source["keys"]),STRIDE)] if source else [0]
+        timeline_index=len(clip["timelines"]);key_ids=[uid() for _ in times]
+        rows=[]
+        for time in times:rows.extend(_row(time,0,0,0,1,1,1,-1))
+        clip["timelines"].append({"name":name,"id":uid(),"object_type":"bone","key_ids":key_ids,"key_count":len(times),"keys":rows})
+        for state in clip.get("mainline",[]):
+            parent_ref=next((i for i,ref in enumerate(state.get("bones",[])) if ref[0]==parent_index),-1)
+            key_index=max(0,next((i for i,time in enumerate(times) if time>=int(state.get("time",0))),len(times)-1))
+            state.setdefault("bones",[]).append([bone_index,timeline_index,key_index,parent_ref])
+    return {"name":name,"parent":parent_name,"length":float(length)}
+
+
+def add_character_map(entity: dict, name: str) -> dict:
+    name=name.strip()
+    if not name:raise AnimationError("Enter a character-map name.")
+    if any(item.get("name")==name for item in entity.get("character_maps",[])):
+        raise AnimationError(f"A character map named {name!r} already exists.")
+    mapping={"name":name,"maps":[]};entity.setdefault("character_maps",[]).append(mapping);return mapping
+
+
+def set_character_map_entry(entity: dict, name: str, source: int, target: int) -> dict:
+    if not 0<=source<len(entity.get("files",[])):raise AnimationError("Select a valid source image.")
+    if target!=-1 and not 0<=target<len(entity.get("files",[])):raise AnimationError("Select a valid replacement image or Hide.")
+    mapping=next((item for item in entity.get("character_maps",[]) if item.get("name")==name),None)
+    if mapping is None:raise AnimationError(f"Unknown character map: {name}")
+    entry=next((item for item in mapping["maps"] if int(item.get("source",-1))==source),None)
+    if entry is None:mapping["maps"].append({"source":source,"target":target})
+    else:entry["target"]=target
+    mapping["maps"].sort(key=lambda item:item["source"])
+    return mapping
+
+
+def remove_character_map(project: dict, entity: dict, name: str) -> bool:
+    mapping=next((item for item in entity.get("character_maps",[]) if item.get("name")==name),None)
+    if mapping is None:return False
+    entity["character_maps"].remove(mapping)
+    active=project.setdefault("settings",{}).setdefault("preview_maps",{}).get(entity.get("id"),[])
+    project["settings"]["preview_maps"][entity["id"]]=[item for item in active if item!=name]
+    return True
+
+
+def set_preview_maps(project: dict, entity: dict, names: list[str]) -> list[str]:
+    known={item.get("name") for item in entity.get("character_maps",[])}
+    if any(name not in known for name in names):raise AnimationError("One or more selected preview maps do not exist.")
+    clean=list(dict.fromkeys(names))
+    project.setdefault("settings",{}).setdefault("preview_maps",{})[entity["id"]]=clean
+    return clean
+
+
+def add_part(project: dict, entity: dict, assets: dict[str, bytes], name: str, png: bytes,
+             bone_name: str = "root", pivot_x: float = .5, pivot_y: float = .5) -> dict:
+    """Add one independent transparent image attachment to a bone in every clip."""
+    name=name.strip()
+    if not name:raise AnimationError("Enter a part name.")
+    if name in entity.get("parts", []):raise AnimationError(f"A part named {name!r} already exists.")
+    if bone_name not in entity.get("bones", []):raise AnimationError(f"Unknown bone: {bone_name}")
+    if not entity.get("animations"):raise AnimationError("Add an animation before importing a part.")
+    asset_id,width,height=store_asset(assets,png)
+    sprite=safe_sprite=slug(entity["name"]+"_"+name)
+    info={"asset_id":asset_id,"path":safe_sprite+".png","width":width,"height":height,
+          "pivot_x":float(pivot_x),"pivot_y":float(pivot_y),"name":name,
+          "sprite_name":sprite,"sprite":sprite}
+    file_index=len(entity.setdefault("files",[]));entity["files"].append(info)
+    part_index=len(entity.setdefault("parts",[]));entity["parts"].append(name)
+    bone_index=entity["bones"].index(bone_name)
+    for clip in entity["animations"]:
+        timeline_index=len(clip["timelines"])
+        timeline_id=uid()
+        row=_row(0,0,0,0,1,1,1,file_index)
+        clip["timelines"].append({"name":name,"id":timeline_id,"object_type":"sprite",
+                                  "key_ids":[uid()],"key_count":1,"keys":row})
+        for state in clip.get("mainline",[]):
+            parent_ref=next((i for i,ref in enumerate(state.get("bones",[])) if ref[0]==bone_index),-1)
+            z=max((int(ref[4]) for ref in state.get("objects",[])),default=-1)+1
+            state.setdefault("objects",[]).append([part_index,timeline_index,0,parent_ref,z])
+            state["objects"].sort(key=lambda ref:ref[4])
+    validate_project(project,assets)
+    return info
+
+
+def replace_part_art(entity: dict, assets: dict[str, bytes], part_name: str, png: bytes) -> dict:
+    """Replace a part's image across its clips while preserving authored transforms."""
+    if entity.get("character_maps"):
+        raise AnimationError("Clear character maps before replacing part art; map indices refer to existing files.")
+    if part_name not in entity.get("parts",[]):raise AnimationError(f"Unknown sprite part: {part_name}")
+    asset_id,width,height=store_asset(assets,png)
+    file_index=len(entity.get("files",[]))
+    previous=None
+    for clip in entity.get("animations",[]):
+        timeline=next((t for t in clip.get("timelines",[]) if t.get("object_type")=="sprite" and t.get("name")==part_name),None)
+        if timeline is None:continue
+        rows=[timeline["keys"][i:i+STRIDE] for i in range(0,len(timeline["keys"]),STRIDE)]
+        if previous is None:
+            old_index=next((int(row[9]) for row in rows if int(row[9])>=0),None)
+            if old_index is None:raise AnimationError(f"{part_name} has no source image to replace.")
+            previous=copy.deepcopy(entity["files"][old_index])
+        for row in rows:row[9]=file_index
+        timeline["keys"]=[v for row in rows for v in row]
+    if previous is None:raise AnimationError(f"No sprite timeline exists for {part_name}.")
+    previous.update(asset_id=asset_id,path=slug(entity["name"]+"_"+part_name)+".png",width=width,height=height,
+                    name=part_name,sprite_name=slug(entity["name"]+"_"+part_name),sprite=slug(entity["name"]+"_"+part_name))
+    entity["files"].append(previous)
+    return previous
 
 
 def add_event(entity: dict, animation_name: str, name: str, time_ms: int, payload: dict | None = None) -> dict:
@@ -545,6 +744,102 @@ def add_event(entity: dict, animation_name: str, name: str, time_ms: int, payloa
     event={"time":max(0,min(int(time_ms),int(clip["duration"]))),"name":name.strip(),"payload":payload or {},"source":"harness"}
     clip.setdefault("events",[]).append(event);clip["events"].sort(key=lambda e:e["time"])
     return event
+
+
+def add_clip(entity: dict, name: str) -> dict:
+    name=name.strip()
+    if not name:raise AnimationError("Enter an animation name.")
+    if any(c.get("name", "").casefold()==name.casefold() for c in entity.get("animations",[])):
+        raise AnimationError(f"An animation named {name!r} already exists.")
+    if not entity.get("animations"):raise AnimationError("Add a character rig before creating an animation.")
+    clip=copy.deepcopy(entity["animations"][0]);clip["id"]=uid();clip["name"]=name;clip["looping"]=True;clip["events"]=[]
+    for timeline in clip["timelines"]:
+        timeline["id"]=uid();timeline["key_ids"]=[uid() for _ in range(timeline["key_count"])]
+    entity["animations"].append(clip)
+    return clip
+
+
+def slice_part(entity: dict, assets: dict[str, bytes], part_name: str, timeline_index: int,
+               p0: list[float], p1: list[float], joint: list[float], overlap: float = 5.0,
+               cap_radius: float = 9.0) -> tuple[str, str]:
+    """Split a sprite attachment into pivot-correct upper/lower cutouts with a child hinge bone."""
+    if entity.get("character_maps"):
+        raise AnimationError("Clear character maps before slicing this part; mapped attachments need individual cut lines.")
+    if part_name not in entity.get("parts", []):raise AnimationError(f"Unknown sprite part: {part_name}")
+    part_index=entity["parts"].index(part_name)
+    if not entity.get("animations"):raise AnimationError("Add an animation before slicing this character.")
+    source_timeline=next((t for t in entity["animations"][0]["timelines"] if t.get("object_type")=="sprite" and t.get("name")==part_name),None)
+    if source_timeline is None:raise AnimationError("Choose the selected part's sprite timeline.")
+    source_keys=[source_timeline["keys"][i:i+STRIDE] for i in range(0,len(source_timeline["keys"]),STRIDE)]
+    source_indexes={int(key[9]) for key in source_keys}
+    if len(source_indexes)!=1 or next(iter(source_indexes))<0:
+        raise AnimationError("Slice each image swap separately; this part timeline uses multiple images.")
+    source_file_index=next(iter(source_indexes));source_file=entity["files"][source_file_index]
+    source_asset=assets[source_file["asset_id"]]
+    upper_bytes,lower_bytes,joint,upper_offset,lower_offset=cut_image(source_asset,p0,p1,joint,overlap,cap_radius)
+    upper_id,upper_w,upper_h=store_asset(assets,upper_bytes);lower_id,lower_w,lower_h=store_asset(assets,lower_bytes)
+    from PIL import Image
+    src=Image.open(io.BytesIO(source_asset)).convert("RGBA")
+    upper=Image.open(io.BytesIO(upper_bytes)).convert("RGBA");lower=Image.open(io.BytesIO(lower_bytes)).convert("RGBA")
+    old_px=float(source_file.get("pivot_x",0))*src.width
+    old_py=(1-float(source_file.get("pivot_y",1)))*src.height
+    ux,uy=upper_offset;lx,ly=lower_offset
+    upper_pivot_x=(old_px-ux)/upper_w;upper_pivot_y=1-(old_py-uy)/upper_h
+    lower_pivot_x=(joint[0]-lx)/lower_w;lower_pivot_y=1-(joint[1]-ly)/lower_h
+    upper_name=part_name+"_upper";lower_name=part_name+"_lower";hinge_name=part_name+"_hinge"
+    if upper_name in entity["parts"] or lower_name in entity["parts"] or hinge_name in entity["bones"]:
+        raise AnimationError("This part has already been split; rename or remove its existing cutouts first.")
+    upper_file={**source_file,"asset_id":upper_id,"path":Path(source_file["path"]).stem+"_upper.png","width":upper_w,"height":upper_h,"pivot_x":upper_pivot_x,"pivot_y":upper_pivot_y,"name":upper_name,"sprite_name":slug(entity["name"]+"_"+upper_name),"sprite":slug(entity["name"]+"_"+upper_name)}
+    lower_file={**source_file,"asset_id":lower_id,"path":Path(source_file["path"]).stem+"_lower.png","width":lower_w,"height":lower_h,"pivot_x":lower_pivot_x,"pivot_y":lower_pivot_y,"name":lower_name,"sprite_name":slug(entity["name"]+"_"+lower_name),"sprite":slug(entity["name"]+"_"+lower_name)}
+    upper_file_index=len(entity["files"]);lower_file_index=upper_file_index+1
+    entity["files"].extend([upper_file,lower_file])
+    entity["parts"][part_index]=upper_name;lower_part_index=len(entity["parts"]);entity["parts"].append(lower_name)
+    # The new hinge inherits the original part's parent bone and places its origin on the sliced joint.
+    new_bone_index=len(entity["bones"]);entity["bones"].append(hinge_name);entity["bone_lengths"].append(max(8.0,float(cap_radius)*2))
+    for clip in entity["animations"]:
+        matching=[tl for tl in clip["timelines"] if tl.get("object_type")=="sprite" and tl.get("name")==part_name]
+        if len(matching)!=1:raise AnimationError(f"Expected one {part_name} sprite track in {clip['name']}.")
+        old_timeline=matching[0];old_timeline_index=clip["timelines"].index(old_timeline)
+        rows=[old_timeline["keys"][i:i+STRIDE] for i in range(0,len(old_timeline["keys"]),STRIDE)]
+        indexes={int(row[9]) for row in rows}
+        if indexes!={source_file_index}:raise AnimationError(f"{clip['name']} changes this part's image; slice variants separately first.")
+        old_timeline["name"]=upper_name
+        for row in rows:
+            row[9]=upper_file_index
+            if row[7]>PIVOT_DEFAULT:
+                keyed_x=row[7]*src.width;keyed_y=(1-row[8])*src.height
+                row[7]=(keyed_x-ux)/upper_w;row[8]=1-(keyed_y-uy)/upper_h
+        old_timeline["keys"]=[v for row in rows for v in row]
+        new_bone_timeline_index=len(clip["timelines"])
+        child_rows=[]
+        for row in rows:
+            angle=math.radians(float(row[3]));sx=float(row[4]);sy=float(row[5])
+            # Spriter's local y axis points upward, while raster rows point downward.
+            pivot_x=old_px if row[7]<=PIVOT_DEFAULT else float(row[7])*upper_w+ux
+            pivot_y=old_py if row[8]<=PIVOT_DEFAULT else (1-float(row[8]))*upper_h+uy
+            dx=(joint[0]-pivot_x)*sx;dy=(pivot_y-joint[1])*sy
+            ox=math.cos(angle)*dx-math.sin(angle)*dy
+            oy=math.sin(angle)*dx+math.cos(angle)*dy
+            child_rows.extend(_row(int(row[0]),float(row[1])+ox,float(row[2])+oy,float(row[3]),sx,sy,float(row[6]),-1))
+        child_key_ids=list(old_timeline.get("key_ids",[]))
+        child_bone_timeline={"name":hinge_name,"id":uid(),"object_type":"bone","key_ids":child_key_ids,"key_count":len(rows),"keys":child_rows}
+        child_sprite_rows=[]
+        for row in rows:child_sprite_rows.extend(_row(int(row[0]),0,0,0,1,1,1,lower_file_index))
+        lower_timeline_index=new_bone_timeline_index+1
+        child_sprite_timeline={"name":lower_name,"id":uid(),"object_type":"sprite","key_ids":child_key_ids,"key_count":len(rows),"keys":child_sprite_rows}
+        clip["timelines"].extend([child_bone_timeline,child_sprite_timeline])
+        mainline=clip.get("mainline",[])
+        for state in mainline:
+            source_part=next((o for o in state.get("objects",[]) if o[0]==part_index and o[1]==old_timeline_index),None)
+            if source_part is None:continue
+            parent_ref=source_part[3]
+            row_key=source_part[2]
+            child_ref=len(state.get("bones",[]))
+            state.setdefault("bones",[]).append([new_bone_index,new_bone_timeline_index,row_key,parent_ref])
+            state["objects"].append([lower_part_index,lower_timeline_index,row_key,child_ref,int(source_part[4])+1])
+            state["objects"].sort(key=lambda item:item[4])
+    validate_project({"format":FORMAT,"version":VERSION,"settings":{"canvas":[240,200]},"collections":[{"id":"slice","key":"slice","entities":[entity]}]},assets)
+    return upper_name,lower_name
 
 
 def export_pngs(project: dict, assets: dict[str, bytes], output: str | Path) -> dict:

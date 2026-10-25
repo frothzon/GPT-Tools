@@ -4,7 +4,7 @@ Reusable tooling for reading and changing GameMaker projects without forcing an 
 
 ## Status
 
-The review/verification workbench is implemented. See [WORKBENCH.md](WORKBENCH.md) for the primary workflow, full installed manual, browser interface, MCP adapter, examples, and measured limitations. New commands: `session`, `context`, `change`, `scenario`, `docs`, `report`, `serve`, `mcp`, and `registry`. Plans freeze reviewed bytes and require matching evidence before apply; scenario assertions are distinct from compilation.
+The review/verification workbench is implemented. See [WORKBENCH.md](WORKBENCH.md) for the primary workflow, full installed manual, browser interface, MCP adapter, examples, and measured limitations. New commands: `session`, `context`, `change`, `scenario`, `docs`, `report`, `serve`, `mcp`, `registry`, and `animation`. Plans freeze reviewed bytes and require matching evidence before apply; scenario assertions are distinct from compilation.
 
 | Capability | Status |
 | --- | --- |
@@ -25,6 +25,7 @@ The review/verification workbench is implemented. See [WORKBENCH.md](WORKBENCH.m
 | Dependency graph | Implemented for exact metadata references plus explicitly soft/static code references |
 | Capability/schema discovery | Implemented via `capabilities`, `schema`, and `inventory` commands |
 | Transaction recovery | Implemented via journal inspection and explicit rollback of unfinished transactions |
+| Cutout animation harness | Browser editor, versioned `.gmanim` projects, SCML migration, bones and image parts, rounded slicing, key editing/events, PNG/GIF export, and ProjectTool-backed YYMPS packages implemented; see [ANIMATION_HARNESS.md](ANIMATION_HARNESS.md) for limits |
 
 Do not invoke a planned command until this table identifies it as implemented. “Implemented” here describes the current baseline, not full support under `RESOURCE_COVERAGE.md`; consult the capability output and command help for limitations.
 
@@ -46,6 +47,7 @@ The intended command families are:
 - `resource-tool` for an official ResourceTool expression on a disposable clone, with optional transactional application of the complete reviewed diff.
 - `resource` for common create/edit/list operations expressed as safe, reviewed ResourceTool recipes.
 - `preview` for content-addressed agent-readable summaries, normalized data, dependency lists, and media/spatial previews.
+- `animation` for a local cutout rig editor, portable animation project save/load, animation migration, and PNG/GIF export.
 
 See [PLAN.md](PLAN.md) for architecture, safety rules, and milestones. [RESOURCE_COVERAGE.md](RESOURCE_COVERAGE.md) is the exhaustive capability matrix and completion contract for every GameMaker content family. [SYNTAX_REPAIR.md](SYNTAX_REPAIR.md) defines compiler-backed diagnosis and conservative repair of simple GML, shader, and metadata syntax errors.
 
@@ -65,7 +67,14 @@ See [PLAN.md](PLAN.md) for architecture, safety rules, and milestones. [RESOURCE
 & "C:\Agent Tools\game-maker\gmtool.ps1" preview C:\path\game.yyp rm_level
 & "C:\Agent Tools\game-maker\gmtool.ps1" test C:\path\game.yyp --target windows --runtime vm
 & "C:\Agent Tools\game-maker\gmtool.ps1" run C:\path\game.yyp --target windows --runtime vm --timeout 60
+& "C:\Agent Tools\game-maker\gmtool.ps1" animation new
+& "C:\Agent Tools\game-maker\gmtool.ps1" animation migrate C:\art\zombies.scml --output C:\art\zombies.gmanim
+& "C:\Agent Tools\game-maker\gmtool.ps1" animation migrate C:\art\zombies.scml --output C:\art\zombies.gmanim --headless
+& "C:\Agent Tools\game-maker\gmtool.ps1" animation export C:\art\zombies.gmanim --format png --output C:\art\png
+& "C:\Agent Tools\game-maker\gmtool.ps1" animation export C:\art\zombies.gmanim --format yymps --template-project C:\path\game.yyp --output C:\art\zombies.yymps
 ```
+
+The animation editor uses the optional image dependencies: `py -3 -m pip install -e .[animation]`. `animation new` and `animation open` launch an authenticated local browser editor. The project file embeds its PNG art; source SCML and selected GameMaker template projects are not modified. The editor can add full character art or independent PNG parts, create child bones, slice with rounded overlap caps, edit keyframes/events, and export PNG/GIF previews. YYMPS export uses the official ProjectTool executable discovered locally or supplied with `--project-tool`.
 
 `write` and `resource-tool` default to non-project-mutating workflows. `write` needs `--apply` to replace a source file. `resource-tool` always evaluates on a disposable project clone and needs `--apply` to transactionally copy the complete official diff back to the selected project.
 

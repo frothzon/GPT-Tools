@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameMaker Animation Harness</title>
+  <link rel="stylesheet" href="/style.css?token=__TOKEN__">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="mark">A</div><div><strong>Animation Harness</strong><small>Cutout rigging and motion editor</small></div></div>
+    <div class="actions">
+      <button id="newProject" class="quiet">New</button>
+      <label class="button quiet">Open<input id="openProject" type="file" accept=".gmanim"></label>
+      <button id="saveProject" class="primary">Save Project</button>
+      <span class="divider"></span>
+      <button id="exportPng">Export PNGs</button><button id="exportGif">Export GIFs</button><button id="exportPackage" title="Export a GameMaker YYMPS package">Export YYMPS</button>
+    </div>
+  </header>
+  <main class="shell">
+    <aside class="sidebar">
+      <div class="section-head"><div><span class="eyebrow">PROJECT</span><h2 id="projectName">Untitled Animation</h2></div><button id="editName" class="icon" title="Rename project">···</button></div>
+      <div class="tree-heading">CHARACTERS <span><button id="addCharacter" class="text-button">+ Add art</button><button id="addPart" class="text-button">+ Part</button></span></div>
+      <div id="characterList" class="character-list"></div>
+      <input id="characterImage" type="file" accept="image/png" hidden>
+      <input id="partImage" type="file" accept="image/png" hidden>
+      <input id="replacementImage" type="file" accept="image/png" hidden>
+      <div class="sidebar-note"><b>Art input</b><p>Import a transparent character image or separate PNG parts. Click and drag on the canvas to place a rounded joint cut.</p></div>
+      <div class="bottom-status"><span class="status-dot"></span><span id="statusText">Ready</span></div>
+    </aside>
+    <section class="workarea">
+      <div class="toolbar">
+        <div class="crumb"><span id="currentCharacter">No character</span><span>/</span><select id="clipSelect" aria-label="Animation clip"></select></div>
+        <div class="tool-actions"><button id="sliceMode" class="quiet">✂ Slice Part</button><select id="partSelect" aria-label="Part to slice"></select><button id="replacePart" class="quiet">Replace Art</button><button id="addBone" class="quiet">+ Bone</button><button id="addClip" class="quiet">+ Clip</button></div>
+      </div>
+      <div class="stage-wrap"><div class="stage-frame"><canvas id="stage" width="240" height="200"></canvas><div class="stage-hint" id="stageHint">Import art or select a character</div></div></div>
+      <div class="playbar">
+        <button id="playButton" class="play">▶</button><button id="stopButton" class="quiet">■</button>
+        <div class="timeline-readout"><strong id="timeReadout">0</strong><small>ms</small></div>
+        <input id="timeSlider" type="range" min="0" max="1000" value="0">
+        <label class="speed">Speed <select id="speedSelect"><option value="-2">−2×</option><option value="-1">−1×</option><option value="-0.5">−0.5×</option><option value="0">0×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+      </div>
+      <div class="track-panel">
+        <div class="track-title"><div><span class="eyebrow">TIMELINE</span><h3 id="timelineTitle">Choose a character</h3></div><button id="insertKey" class="quiet">＋ Key at playhead</button></div>
+        <div id="tracks" class="tracks"></div>
+        <div class="event-row"><span class="eyebrow">EVENTS</span><div id="events" class="event-list"></div><button id="addEvent" class="text-button">+ Add Event</button></div>
+      </div>
+    </section>
+    <aside class="inspector">
+      <div class="section-head"><div><span class="eyebrow">INSPECTOR</span><h2 id="selectionTitle">Pose</h2></div></div>
+      <p class="muted">Choose a track and key, then edit its values. Time and position use milliseconds and pixels.</p>
+      <div class="field-grid">
+        <label>Track<select id="trackSelect"></select></label>
+        <label>Key<select id="keySelect"></select></label>
+        <label>Time (ms)<input id="keyTime" type="number" min="0" step="1"></label>
+        <label>X<input id="valueX" type="number" step="0.1"></label>
+        <label>Y<input id="valueY" type="number" step="0.1"></label>
+        <label>Angle<input id="valueAngle" type="number" step="0.1"></label>
+        <label>Scale X<input id="valueScaleX" type="number" step="0.01"></label>
+        <label>Scale Y<input id="valueScaleY" type="number" step="0.01"></label>
+        <label>Alpha<input id="valueAlpha" type="number" min="0" max="1" step="0.01"></label>
+        <label>Pivot X<input id="valuePivotX" type="number" step="0.01"></label>
+        <label>Pivot Y<input id="valuePivotY" type="number" step="0.01"></label>
+        <label>Curve<select id="valueCurve"><option value="0">Instant</option><option value="1">Linear</option><option value="2">Quadratic</option><option value="3">Cubic</option><option value="4">Quartic</option><option value="5">Quintic</option><option value="6">Bezier</option></select></label>
+        <label>C1<input id="valueC1" type="number" step="0.01"></label>
+        <label>C2<input id="valueC2" type="number" step="0.01"></label>
+        <label>C3<input id="valueC3" type="number" step="0.01"></label>
+        <label>C4<input id="valueC4" type="number" step="0.01"></label>
+        <label>Image<select id="valueFile"></select></label>
+        <label>Z order<input id="zOrder" type="number" step="1"></label>
+      </div>
+      <button id="applyValues" class="primary full">Apply Key Values</button>
+      <div class="separator"></div>
+      <label class="standalone">Event name<input id="eventName" placeholder="footstep"></label>
+      <label class="standalone">Payload JSON<textarea id="eventPayload" rows="3" placeholder='{"foot":"left"}'></textarea></label>
+      <div class="separator"></div>
+      <div class="checks"><span class="eyebrow">PROJECT CHECKS</span><div id="checkList"><p>Choose a character to inspect its tracks.</p></div></div>
+      <div class="separator"></div>
+      <div class="checks"><span class="eyebrow">CHARACTER MAPS</span></div>
+      <label class="standalone">Map<select id="mapSelect"></select></label>
+      <div class="field-grid"><label>Source image<select id="mapSource"></select></label><label>Replacement<select id="mapTarget"></select></label></div>
+      <div class="map-actions"><button id="addMap" class="quiet">+ Map</button><button id="saveMap" class="quiet">Set Entry</button><button id="previewMap" class="quiet">Preview</button><button id="removeMap" class="quiet">Delete</button></div>
+      <input id="scmlPath" class="path-input" placeholder="Optional migration path to an existing SCML project">
+      <button id="migrateScml" class="quiet full">Migrate Existing Project…</button>
+    </aside>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script>window.HARNESS_TOKEN="__TOKEN__";</script>
+  <script src="/app.js?token=__TOKEN__"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from .workspace import load
 
-COMMANDS = {"session", "context", "change", "scenario", "docs", "report", "serve", "mcp", "registry"}
+COMMANDS = {"session", "context", "change", "scenario", "docs", "report", "serve", "mcp", "registry", "animation"}
 
 def register(commands):
     def sub(name, help):
@@ -17,6 +17,7 @@ def register(commands):
     p = sub("serve", "serve the authenticated loopback workbench"); p.add_argument("session_id"); p.add_argument("--port", type=int, default=0)
     p = sub("mcp", "run the optional guarded stdio MCP adapter"); p.add_argument("session_id")
     p = sub("registry", "show or export the executable recipe contract"); p.add_argument("--markdown", action="store_true")
+    p = sub("animation", "author cutout rigs and export native animation projects"); p.add_argument("operation", choices=["new", "open", "migrate", "export"]); p.add_argument("path", nargs="?"); p.add_argument("--output"); p.add_argument("--format", choices=["png", "gif", "yymps"]); p.add_argument("--template-project", help="GameMaker .yyp used for YYMPS metadata and IDE-version profile"); p.add_argument("--project-tool", help="official ProjectTool executable; otherwise discovered automatically"); p.add_argument("--headless", action="store_true", help="migrate SCML without launching the browser editor"); p.add_argument("--port", type=int, default=0)
 
 def run(tool_root, args):
     command = args.command
@@ -59,6 +60,10 @@ def run(tool_root, args):
     elif command == "mcp":
         from .mcp_server import serve
         serve(tool_root, args.session_id); return 0
+    elif command == "animation":
+        from .animation_harness.cli import run
+        result=run(tool_root,args)
+        if result is None:return 0
     else:
         from .operation_registry import recipes, schema
         result = {"recipes": recipes(), "changeSchema": schema()}
